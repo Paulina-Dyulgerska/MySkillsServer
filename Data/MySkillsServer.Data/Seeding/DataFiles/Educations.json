@@ -3,8 +3,8 @@
     "Degree": "Professional degree: CPE",
     "Speciality": "C# Web Developer (Full Stack)",
     "Institution": "Software University",
-    "StartDate": "2019",
-    "EndDate": "2021",
+    "StartYear": "2019",
+    "EndYear": "2021",
     "IconClassName": "fas fa-laptop",
     "Details": "C# Programming Basic, C# Fundamentals, C# Advanced, C# OOP, JS Advanced, JS Applications, Databases Basics - MS SQL Server, Entity Framework Core, C# Web Basics, HTML &amp; CSS, ASP.NET Core, React"
   },
@@ -12,8 +12,8 @@
     "Degree": "Master degree: MAcc",
     "Speciality": "Accounting, Economics",
     "Institution": "University of Plovdiv",
-    "StartDate": "2005",
-    "EndDate": "2007",
+    "StartYear": "2005",
+    "EndYear": "2007",
     "IconClassName": "fas fa-chart-line",
     "Details": "Accounting, Corporate Analysis, Industrial Management, Macroeconomics, Microeconomics, Marketing, Statistics, Finance, Labor Economics, Taxes and Tax Policy"
   },
@@ -21,8 +21,8 @@
     "Degree": "Master degree: MEng",
     "Speciality": "Automation, Information and Control Systems",
     "Institution": "Technical University – Sofia, branch Plovdiv",
-    "StartDate": "1997",
-    "EndDate": "2003",
+    "StartYear": "1997",
+    "EndYear": "2003",
     "IconClassName": "fas fa-tools",
     "Details": "Production Automation, Informatics, Electrical Engineering, Mathematics, Physics and Chemistry"
   },
@@ -30,9 +30,9 @@
     "Degree": "High School",
     "Speciality": "Mathematics and English",
     "Institution": "High School of Mathematics - Stara Zagora",
-    "StartDate": "1991",
-    "EndDate": "1996",
+    "StartYear": "1991",
+    "EndYear": "1996",
     "IconClassName": "fas fa-square-root-alt",
-    "Detials": "Mathematics and English"
+    "Details": "Mathematics and English"
   }
 ]

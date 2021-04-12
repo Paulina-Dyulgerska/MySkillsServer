@@ -259,8 +259,8 @@ namespace MySkillsServer.Data.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("EndYear")
+                        .HasColumnType("int");
 
                     b.Property<string>("IconClassName")
                         .HasColumnType("nvarchar(max)");
@@ -274,8 +274,8 @@ namespace MySkillsServer.Data.Migrations
                     b.Property<string>("Speciality")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("StartYear")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -298,7 +298,7 @@ namespace MySkillsServer.Data.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("IconClassName")
