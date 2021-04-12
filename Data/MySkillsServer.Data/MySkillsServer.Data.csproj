@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\MySkillsServer.Common\MySkillsServer.Common.csproj" />
+    <ProjectReference Include="..\..\Services\MySkillsServer.Services.Data\MySkillsServer.Services.Data.csproj" />
     <ProjectReference Include="..\MySkillsServer.Data.Common\MySkillsServer.Data.Common.csproj" />
     <ProjectReference Include="..\MySkillsServer.Data.Models\MySkillsServer.Data.Models.csproj" />
   </ItemGroup>

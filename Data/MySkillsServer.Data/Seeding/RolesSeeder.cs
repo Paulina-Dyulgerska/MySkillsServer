@@ -4,11 +4,10 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using MySkillsServer.Common;
-    using MySkillsServer.Data.Models;
-
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+    using MySkillsServer.Common;
+    using MySkillsServer.Data.Models;
 
     internal class RolesSeeder : ISeeder
     {

@@ -6,11 +6,10 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using MySkillsServer.Data.Common.Models;
-    using MySkillsServer.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using MySkillsServer.Data.Common.Models;
+    using MySkillsServer.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -25,6 +24,11 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Education> Educations { get; set; }
+
+        public DbSet<Experiance> Experiances { get; set; }
+
 
         public override int SaveChanges() => this.SaveChanges(true);
 
