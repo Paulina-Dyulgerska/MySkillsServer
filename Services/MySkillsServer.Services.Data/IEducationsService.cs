@@ -19,10 +19,11 @@
 
         Task<T> GetByIdAsync<T>(int id);
 
-        Task CreateAsync(EducationCreateInputModel input, string userId);
+        //Task CreateAsync(EducationCreateInputModel input, string userId);
+        Task CreateAsync(EducationCreateInputModel input);
 
-        Task EditAsync(EducationEditInputModel input, string userId);
+        Task EditAsync(EducationEditInputModel input);
 
-        Task DeleteAsync(int id);
+        Task<int> DeleteAsync(int id);
     }
 }

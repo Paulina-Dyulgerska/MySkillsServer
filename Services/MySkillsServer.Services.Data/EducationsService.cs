@@ -41,6 +41,7 @@
             return await this.educationsRepository
                 .AllAsNoTracking()
                 .OrderByDescending(x => x.EndYear)
+                .ThenBy(x => x.Speciality)
                 .To<T>()
                 .ToListAsync();
         }
@@ -64,7 +65,8 @@
                 .FirstOrDefaultAsync();
         }
 
-        public async Task CreateAsync(EducationCreateInputModel input, string userId)
+        //public async Task CreateAsync(EducationCreateInputModel input, string userId)
+        public async Task CreateAsync(EducationCreateInputModel input)
         {
             // var userEntity = this.usersRepository.AllAsNoTracking()
             //   .FirstOrDefault(x => x.UserName == articleInputModel.UserId);
@@ -74,8 +76,8 @@
                 Degree = input.Degree.Trim(),
                 Speciality = input.Speciality.Trim(),
                 Institution = input.Institution.Trim(),
-                StartYear = int.Parse(input.StartYear.Trim()),
-                EndYear = int.Parse(input.EndYear.Trim()),
+                StartYear = input.StartYear,
+                EndYear = input.EndYear,
                 IconClassName = input.IconClassName.Trim(),
                 Details = input.Details.Trim(),
             };
@@ -85,7 +87,8 @@
             await this.educationsRepository.SaveChangesAsync();
         }
 
-        public async Task EditAsync(EducationEditInputModel input, string userId)
+        //public async Task EditAsync(EducationEditInputModel input, string userId)
+        public async Task EditAsync(EducationEditInputModel input)
         {
             var entity = await this.educationsRepository
                 .All()
@@ -97,20 +100,20 @@
             entity.Degree = input.Degree.Trim();
             entity.Speciality = input.Speciality.Trim();
             entity.Institution = input.Institution.Trim();
-            entity.StartYear = int.Parse(input.StartYear.Trim());
-            entity.EndYear = int.Parse(input.EndYear.Trim());
+            entity.StartYear = input.StartYear;
+            entity.EndYear = input.EndYear;
             entity.IconClassName = input.IconClassName.Trim();
             entity.Details = input.Details.Trim();
 
             await this.educationsRepository.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<int> DeleteAsync(int id)
         {
             var entity = await this.educationsRepository.All().FirstOrDefaultAsync(x => x.Id == id);
             this.educationsRepository.Delete(entity);
 
-            await this.educationsRepository.SaveChangesAsync();
+            return await this.educationsRepository.SaveChangesAsync();
         }
 
         private string PascalCaseConverterWords(string stringToFix)

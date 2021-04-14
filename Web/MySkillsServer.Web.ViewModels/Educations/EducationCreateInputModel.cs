@@ -17,10 +17,10 @@
         public string Institution { get; set; }
 
         // [Range(1950, 2021)]
-        public string StartYear { get; set; }
+        public int StartYear { get; set; }
 
         // [Range(1950, 2021)]
-        public string EndYear { get; set; }
+        public int EndYear { get; set; }
 
         public string IconClassName { get; set; }
 

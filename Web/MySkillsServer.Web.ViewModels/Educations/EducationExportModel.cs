@@ -5,6 +5,8 @@
 
     public class EducationExportModel : IMapFrom<Education>
     {
+        public int Id { get; set; }
+
         public string Degree { get; set; }
 
         public string Speciality { get; set; }
