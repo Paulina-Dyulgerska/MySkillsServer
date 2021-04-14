@@ -3,12 +3,11 @@
     using System;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Mvc;
     using MySkillsServer.Data.Common.Repositories;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Data;
     using MySkillsServer.Web.ViewModels.Settings;
-
-    using Microsoft.AspNetCore.Mvc;
 
     public class SettingsController : BaseController
     {

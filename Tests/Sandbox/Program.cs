@@ -5,6 +5,11 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using CommandLine;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using MySkillsServer.Data;
     using MySkillsServer.Data.Common;
     using MySkillsServer.Data.Common.Repositories;
@@ -13,13 +18,6 @@
     using MySkillsServer.Data.Seeding;
     using MySkillsServer.Services.Data;
     using MySkillsServer.Services.Messaging;
-
-    using CommandLine;
-
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
 
     public static class Program
     {

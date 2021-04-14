@@ -1,9 +1,8 @@
 ﻿namespace MySkillsServer.Web.ViewModels.Settings
 {
+    using AutoMapper;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Mapping;
-
-    using AutoMapper;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {

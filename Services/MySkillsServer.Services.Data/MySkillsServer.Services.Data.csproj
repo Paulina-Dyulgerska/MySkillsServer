@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\MySkillsServer.Data.Common\MySkillsServer.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\MySkillsServer.Data.Models\MySkillsServer.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\MySkillsServer.Web.ViewModels\MySkillsServer.Web.ViewModels.csproj" />
     <ProjectReference Include="..\MySkillsServer.Services.Mapping\MySkillsServer.Services.Mapping.csproj" />
   </ItemGroup>
 

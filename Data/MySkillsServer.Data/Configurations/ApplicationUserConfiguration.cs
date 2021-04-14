@@ -1,8 +1,8 @@
 ﻿namespace MySkillsServer.Data.Configurations
 {
-    using MySkillsServer.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using MySkillsServer.Data.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {

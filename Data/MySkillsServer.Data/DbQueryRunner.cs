@@ -3,9 +3,8 @@
     using System;
     using System.Threading.Tasks;
 
-    using MySkillsServer.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+    using MySkillsServer.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {

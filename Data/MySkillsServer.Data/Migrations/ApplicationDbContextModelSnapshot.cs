@@ -277,7 +277,12 @@ namespace MySkillsServer.Data.Migrations
                     b.Property<int>("StartYear")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Educations");
                 });
@@ -319,7 +324,12 @@ namespace MySkillsServer.Data.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Experiances");
                 });
@@ -405,6 +415,24 @@ namespace MySkillsServer.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MySkillsServer.Data.Models.Education", b =>
+                {
+                    b.HasOne("MySkillsServer.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MySkillsServer.Data.Models.Experiance", b =>
+                {
+                    b.HasOne("MySkillsServer.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MySkillsServer.Data.Models.ApplicationUser", b =>

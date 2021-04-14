@@ -2,9 +2,8 @@
 {
     using System.Diagnostics;
 
-    using MySkillsServer.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
+    using MySkillsServer.Web.ViewModels;
 
     public class HomeController : BaseController
     {

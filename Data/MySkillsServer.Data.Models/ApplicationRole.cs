@@ -3,9 +3,8 @@ namespace MySkillsServer.Data.Models
 {
     using System;
 
-    using MySkillsServer.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using MySkillsServer.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

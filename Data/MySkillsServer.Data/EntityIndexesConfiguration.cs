@@ -2,9 +2,8 @@
 {
     using System.Linq;
 
-    using MySkillsServer.Data.Common.Models;
-
     using Microsoft.EntityFrameworkCore;
+    using MySkillsServer.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {
