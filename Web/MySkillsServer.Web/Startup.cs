@@ -51,10 +51,11 @@
             {
                 options.AddPolicy(
                                     name: this.allowSpecificOrigins,
-                                    builder =>
-                                        {
-                                            builder.WithOrigins("http://localhost:3001");
-                                        });
+                                    builder => builder
+                                            .AllowAnyMethod()
+                                            .AllowCredentials()
+                                            .SetIsOriginAllowed((host) => { return host == "http://localhost:3001"; })
+                                            .AllowAnyHeader());
             });
 
             services.AddControllersWithViews(
