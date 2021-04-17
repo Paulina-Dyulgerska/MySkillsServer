@@ -54,7 +54,7 @@
         [IgnoreAntiforgeryTokenAttribute]
 
         // [Authorize]
-        public async Task<ActionResult<EducationCreateInputModel>> Create(EducationCreateInputModel input)
+        public async Task<ActionResult<EducationCreateInputModel>> Post(EducationCreateInputModel input)
         {
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             // var user = await this.userManager.GetUserAsync(this.User);
@@ -69,7 +69,7 @@
         [IgnoreAntiforgeryTokenAttribute]
 
         // [Authorize]
-        public async Task<ActionResult<EducationEditInputModel>> Edit(int id, EducationEditInputModel input)
+        public async Task<ActionResult<EducationEditInputModel>> Put(int id, EducationEditInputModel input)
         {
             if (id != input.Id)
             {

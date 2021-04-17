@@ -24,6 +24,7 @@
     public class Startup
     {
         private readonly IConfiguration configuration;
+        private readonly string allowSpecificOrigins = "AllowSpecificOrigins";
 
         public Startup(IConfiguration configuration)
         {
@@ -45,6 +46,16 @@
                         options.CheckConsentNeeded = context => true;
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                                    name: this.allowSpecificOrigins,
+                                    builder =>
+                                        {
+                                            builder.WithOrigins("http://localhost:3001");
+                                        });
+            });
 
             services.AddControllersWithViews(
                 options =>
@@ -98,6 +109,8 @@
             app.UseCookiePolicy();
 
             app.UseRouting();
+
+            app.UseCors(this.allowSpecificOrigins);
 
             app.UseAuthentication();
             app.UseAuthorization();

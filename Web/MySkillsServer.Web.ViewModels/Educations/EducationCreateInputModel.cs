@@ -2,24 +2,28 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using MySkillsServer.Common.ValidationAttributes;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Mapping;
 
     public class EducationCreateInputModel : IMapTo<Education>
     {
         [Required]
+        [MinLength(2)]
         public string Degree { get; set; }
 
         [Required]
+        [MinLength(5)]
         public string Speciality { get; set; }
 
         [Required]
+        [MinLength(5)]
         public string Institution { get; set; }
 
-        // [Range(1950, 2021)]
+        [YearValidationAttribute(1950)]
         public int StartYear { get; set; }
 
-        // [Range(1950, 2021)]
+        [YearValidationAttribute(1950)]
         public int EndYear { get; set; }
 
         public string IconClassName { get; set; }
