@@ -61,7 +61,8 @@
                 options =>
                     {
                         // options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                    }).AddRazorRuntimeCompilation();
+                    }).AddRazorRuntimeCompilation()
+                    .AddXmlSerializerFormatters();
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
 

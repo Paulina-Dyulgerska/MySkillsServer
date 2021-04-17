@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using MySkillsServer.Data.Models;
     using MySkillsServer.Web.ViewModels.Educations;
 
     public interface IEducationsService
@@ -20,7 +21,7 @@
         Task<T> GetByIdAsync<T>(int id);
 
         // Task CreateAsync(EducationCreateInputModel input, string userId);
-        Task CreateAsync(EducationCreateInputModel input);
+        Task<int> CreateAsync(EducationCreateInputModel input);
 
         Task EditAsync(EducationEditInputModel input);
 

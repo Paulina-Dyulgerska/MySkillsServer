@@ -16,8 +16,7 @@
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            //var _context = (ApplicationDbContext)validationContext.GetService(typeof(ApplicationDbContext));
-
+            // var _context = (ApplicationDbContext)validationContext.GetService(typeof(ApplicationDbContext));
             var hasRightSize = ((IFormFile)value).Length <= this.Size;
 
             if (hasRightSize is true)

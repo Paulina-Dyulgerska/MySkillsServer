@@ -1,7 +1,5 @@
 ﻿namespace MySkillsServer.Web.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -26,11 +24,16 @@
         }
 
         [HttpGet]
-        public async Task<IEnumerable<EducationExportModel>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
             var models = await this.educationsService.GetAllAsNoTrackingOrderedAsync<EducationExportModel>();
 
-            return models;
+            if (models == null)
+            {
+                return this.NoContent();
+            }
+
+            return this.Ok(models);
         }
 
         // GET /api/educations/id and api/educations?id=1234
@@ -38,7 +41,7 @@
 
         // [ProducesResponseType(200)]
         // [ProducesResponseType(404)]
-        public async Task<ActionResult<EducationExportModel>> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var model = await this.educationsService.GetByIdAsync<EducationExportModel>(id);
 
@@ -47,30 +50,31 @@
                 return this.NotFound();
             }
 
-            return model;
+            return this.Ok(model);
         }
 
+        // [Authorize]
         [HttpPost]
         [IgnoreAntiforgeryTokenAttribute]
-
-        // [Authorize]
-        public async Task<ActionResult<EducationCreateInputModel>> Post(EducationCreateInputModel input)
+        public async Task<IActionResult> Post(EducationCreateInputModel input)
         {
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             // var user = await this.userManager.GetUserAsync(this.User);
 
             // await this.educationsService.CreateAsync(input, user.Id);
-            await this.educationsService.CreateAsync(input);
+            var modelId = await this.educationsService.CreateAsync(input);
+            var model = await this.educationsService.GetByIdAsync<EducationExportModel>(modelId);
 
-            return input;
+            // return this.CreatedAtAction(nameof(this.GetById), new { id = modelId }, model);
+            return this.Ok(model);
         }
 
+        // [Authorize]
         [HttpPut("{id}")]
         [IgnoreAntiforgeryTokenAttribute]
-
-        // [Authorize]
-        public async Task<ActionResult<EducationEditInputModel>> Put(int id, EducationEditInputModel input)
+        public async Task<IActionResult> Put(int id, EducationEditInputModel input)
         {
+
             if (id != input.Id)
             {
                 return this.BadRequest();
@@ -89,14 +93,15 @@
             // await this.educationsService.EditAsync(input, user.Id);
             await this.educationsService.EditAsync(input);
 
-            return this.NoContent();
+            model = await this.educationsService.GetByIdAsync<EducationExportModel>(id);
+
+            return this.Ok(model);
         }
 
+        // [Authorize]
         [HttpDelete("{id}")]
         [IgnoreAntiforgeryTokenAttribute]
-
-        // [Authorize]
-        public async Task<ActionResult<int>> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var model = await this.educationsService.GetByIdAsync<EducationExportModel>(id);
 
@@ -105,7 +110,9 @@
                 return this.NotFound();
             }
 
-            return await this.educationsService.DeleteAsync(id);
+            await this.educationsService.DeleteAsync(id);
+
+            return this.Ok();
         }
     }
 }
