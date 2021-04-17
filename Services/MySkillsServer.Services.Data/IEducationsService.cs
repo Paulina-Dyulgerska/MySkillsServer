@@ -19,7 +19,7 @@
 
         Task<T> GetByIdAsync<T>(int id);
 
-        //Task CreateAsync(EducationCreateInputModel input, string userId);
+        // Task CreateAsync(EducationCreateInputModel input, string userId);
         Task CreateAsync(EducationCreateInputModel input);
 
         Task EditAsync(EducationEditInputModel input);

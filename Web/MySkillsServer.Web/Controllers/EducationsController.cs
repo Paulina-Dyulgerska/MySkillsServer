@@ -35,8 +35,9 @@
 
         // GET /api/educations/id and api/educations?id=1234
         [HttpGet("{id}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+
+        // [ProducesResponseType(200)]
+        // [ProducesResponseType(404)]
         public async Task<ActionResult<EducationExportModel>> GetById(int id)
         {
             var model = await this.educationsService.GetByIdAsync<EducationExportModel>(id);
@@ -51,13 +52,14 @@
 
         [HttpPost]
         [IgnoreAntiforgeryTokenAttribute]
+
         // [Authorize]
         public async Task<ActionResult<EducationCreateInputModel>> Create(EducationCreateInputModel input)
         {
-            //var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            //var user = await this.userManager.GetUserAsync(this.User);
+            // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            // var user = await this.userManager.GetUserAsync(this.User);
 
-            //await this.educationsService.CreateAsync(input, user.Id);
+            // await this.educationsService.CreateAsync(input, user.Id);
             await this.educationsService.CreateAsync(input);
 
             return input;
@@ -65,6 +67,7 @@
 
         [HttpPut("{id}")]
         [IgnoreAntiforgeryTokenAttribute]
+
         // [Authorize]
         public async Task<ActionResult<EducationEditInputModel>> Edit(int id, EducationEditInputModel input)
         {
@@ -81,9 +84,9 @@
             }
 
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            //var user = await this.userManager.GetUserAsync(this.User);
+            // var user = await this.userManager.GetUserAsync(this.User);
 
-            //await this.educationsService.EditAsync(input, user.Id);
+            // await this.educationsService.EditAsync(input, user.Id);
             await this.educationsService.EditAsync(input);
 
             return this.NoContent();
@@ -91,6 +94,7 @@
 
         [HttpDelete("{id}")]
         [IgnoreAntiforgeryTokenAttribute]
+
         // [Authorize]
         public async Task<ActionResult<int>> Delete(int id)
         {

@@ -65,7 +65,7 @@
                 .FirstOrDefaultAsync();
         }
 
-        //public async Task CreateAsync(EducationCreateInputModel input, string userId)
+        // public async Task CreateAsync(EducationCreateInputModel input, string userId)
         public async Task CreateAsync(EducationCreateInputModel input)
         {
             // var userEntity = this.usersRepository.AllAsNoTracking()
@@ -87,7 +87,7 @@
             await this.educationsRepository.SaveChangesAsync();
         }
 
-        //public async Task EditAsync(EducationEditInputModel input, string userId)
+        // public async Task EditAsync(EducationEditInputModel input, string userId)
         public async Task EditAsync(EducationEditInputModel input)
         {
             var entity = await this.educationsRepository
