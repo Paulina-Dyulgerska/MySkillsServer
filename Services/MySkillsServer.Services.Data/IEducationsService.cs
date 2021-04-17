@@ -23,7 +23,7 @@
         // Task CreateAsync(EducationCreateInputModel input, string userId);
         Task<int> CreateAsync(EducationCreateInputModel input);
 
-        Task EditAsync(EducationEditInputModel input);
+        Task<int> EditAsync(EducationEditInputModel input);
 
         Task<int> DeleteAsync(int id);
     }

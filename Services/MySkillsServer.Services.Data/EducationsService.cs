@@ -90,7 +90,7 @@
         }
 
         // public async Task EditAsync(EducationEditInputModel input, string userId)
-        public async Task EditAsync(EducationEditInputModel input)
+        public async Task<int> EditAsync(EducationEditInputModel input)
         {
             var entity = await this.educationsRepository
                 .All()
@@ -108,6 +108,8 @@
             entity.Details = input.Details.Trim();
 
             await this.educationsRepository.SaveChangesAsync();
+
+            return entity.Id;
         }
 
         public async Task<int> DeleteAsync(int id)
