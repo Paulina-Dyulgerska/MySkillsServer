@@ -8,8 +8,6 @@
 
     public class EducationCreateInputModel : IMapTo<Education>
     {
-        public int Id { get; set; }
-
         [Required]
         [MinLength(2)]
         public string Degree { get; set; }

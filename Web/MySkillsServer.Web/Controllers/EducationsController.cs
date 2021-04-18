@@ -67,9 +67,9 @@
 
             // await this.educationsService.CreateAsync(input, user.Id);
             var inputId = await this.educationsService.CreateAsync(input);
-            input.Id = inputId;
+            var model = await this.educationsService.GetByIdAsync<EducationExportModel>(inputId);
 
-            return this.CreatedAtAction(nameof(this.GetById), new { id = input.Id }, input);
+            return this.CreatedAtAction(nameof(this.GetById), new { id = model.Id }, model);
         }
 
         // [Authorize]
@@ -80,7 +80,6 @@
         [ProducesResponseType(404)]
         public async Task<ActionResult<EducationExportModel>> Put(int id, EducationEditInputModel input)
         {
-
             if (id != input.Id)
             {
                 return this.BadRequest();

@@ -8,7 +8,7 @@
     {
         private const string DateTimeFormat = "dd/MM/yyyy";
 
-        public DateAttribute(string minDate)
+        public DateAttribute(string minDate = "01/01/1940")
         {
             this.MinDate = DateTime.ParseExact(minDate, DateTimeFormat, CultureInfo.InvariantCulture);
             this.ErrorMessage = $"Date should be between {this.MinDate.Date.ToShortDateString()} " +
