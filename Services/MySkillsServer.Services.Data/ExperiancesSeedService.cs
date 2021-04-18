@@ -31,8 +31,8 @@
                 Company = experianceDTO.Company.Trim(),
                 Url = experianceDTO.Url.Trim(),
                 Logo = experianceDTO.Logo.Trim(),
-                StartDate = DateTime.Parse(experianceDTO.StartDate, CultureInfo.InvariantCulture).Date,
-                EndDate = DateTime.Parse(experianceDTO.EndDate, CultureInfo.InvariantCulture).Date,
+                StartDate = DateTime.Parse(experianceDTO.StartDate.Trim(), CultureInfo.InvariantCulture).Date,
+                EndDate = DateTime.Parse(experianceDTO.EndDate.Trim(), CultureInfo.InvariantCulture).Date,
                 IconClassName = experianceDTO.IconClassName.Trim(),
                 Details = experianceDTO.Details.Trim(),
             };

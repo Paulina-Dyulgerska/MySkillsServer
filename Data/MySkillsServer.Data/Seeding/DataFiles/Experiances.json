@@ -4,8 +4,8 @@
     "Logo": "https://www.liebherr.com/media/global/img/svg/logo_ci_liebherr.svg",
     "Company": "Liebherr Hausgeraete Marica GmbH",
     "Job": "Engineer - Environmental regulatory affairs",
-    "StartDate": "01/05/2013",
-    "EndDate": "",
+    "StartDate": "2013/07/02Z",
+    "EndDate": "2021/04/18Z",
     "IconClassName": "",
     "Details": "Implement the product-related environmental requirements in the product development processes in Liebherr Hausgeraete Marica under the leadership of the Director of Product Development in Bulgaria and the Intercompany Coordinator in Germany."
   },
@@ -14,8 +14,8 @@
     "Logo": "https://www.liebherr.com/media/global/img/svg/logo_ci_liebherr.svg",
     "Company": "Liebherr Hausgeraete Marica GmbH",
     "Job": "Engineer - Product",
-    "StartDate": "01/05/2007",
-    "EndDate": "01/05/2013",
+    "StartDate": "2007/05/02Z",
+    "EndDate": "2013/07/01Z",
     "IconClassName": "",
     "Details": "Designing, constructing, creating technical documentation and drawings of different articles, creating BOMs for the manufactured appliances. Coordinate the project with other departments and the suppliers through the part accomplishment. Participate in preliminary series. Maintenance of the appliances in serial production. Creation and management of technical delivery specifications, internal norms and construction papers. FMEA Moderator (Failure Mode and Effects Analysis) for the new products/designs/processes. Work on projects under the leadership of the Head of Construction Department."
   },
@@ -24,8 +24,8 @@
     "Logo": "https://www.dunapack-packaging.com/typo3conf/ext/rm_template/Resources/Public/Img/WeWill_Dunapack_Logo_Division.svg",
     "Company": "Dunapack-Rodina JSC",
     "Job": "Salesman",
-    "StartDate": "01/04/2005",
-    "EndDate": "01/05/2007",
+    "StartDate": "2005/04/01Z",
+    "EndDate": "2007/05/01Z",
     "IconClassName": "",
     "Details": "Manage the process of selling corrugated packaging in the entrusted sector. Establish strong and steady relationships with clients through good communication and negotiation, advising on opportunities for manufacturing, construction types, materials, characteristics, specificity of the production of corrugated packaging. Negotiate prices and clauses and sign contracts with clients. Discovering and development of new business opportunities. Coordinate design, construction, calculation, bidding, ordering and fulfillment of the order and shipment of packages according to the agreed conditions with customers. Analyzing, forecasting and reporting sales regularly. Visit customers throughout the country. Responsible for the targets and the achieved results under the direct leadership of the Director of Marketing and Sales."
   },
@@ -33,9 +33,9 @@
     "Url": "https://www.dunapack-packaging.com",
     "Logo": "https://www.dunapack-packaging.com/typo3conf/ext/rm_template/Resources/Public/Img/WeWill_Dunapack_Logo_Division.svg",
     "Company": "Dunapack-Rodina JSC",
-    "Job": "Engineer- Product",
-    "StartDate": "01/11/2004 ",
-    "EndDate": "01/04/2005",
+    "Job": "Engineer - Product",
+    "StartDate": "2004/11/01Z",
+    "EndDate": "2005/03/31Z",
     "IconClassName": "",
     "Details": "Design of corrugated cardboard packaging: design, preparing construction documentation, technology card, specifying manufacturing route, means of production, approval and analysis of the products."
   },
@@ -44,8 +44,8 @@
     "Logo": "",
     "Company": "Delta Byte Ltd",
     "Job": "Internet Administrator",
-    "StartDate": "01/08/2000",
-    "EndDate": "01/11/2004",
+    "StartDate": "2000/08/01Z",
+    "EndDate": "2004/10/31Z",
     "IconClassName": "",
     "Details": "Implement the product-related environmental requirements in the product development processes in Liebherr Hausgeraete Marica under the leadership of the Director of Product Development in Bulgaria and the Intercompany Coordinator in Germany."
   }
