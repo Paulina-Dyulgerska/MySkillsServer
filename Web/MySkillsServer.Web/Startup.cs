@@ -25,6 +25,7 @@
     {
         private readonly IConfiguration configuration;
         private readonly string allowSpecificOrigins = "AllowSpecificOrigins";
+        private readonly string corsAllowedUrl = "http://localhost:3000";
 
         public Startup(IConfiguration configuration)
         {
@@ -54,7 +55,7 @@
                                     builder => builder
                                             .AllowAnyMethod()
                                             .AllowCredentials()
-                                            .SetIsOriginAllowed((host) => { return host == "http://localhost:3001"; })
+                                            .SetIsOriginAllowed((host) => { return host == this.corsAllowedUrl; })
                                             .AllowAnyHeader());
             });
 
