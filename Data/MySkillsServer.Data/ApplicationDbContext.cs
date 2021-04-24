@@ -29,6 +29,8 @@
 
         public DbSet<Experiance> Experiances { get; set; }
 
+        public DbSet<Contact> Contacts { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

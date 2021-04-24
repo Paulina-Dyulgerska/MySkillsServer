@@ -4,8 +4,10 @@
     using System.ComponentModel.DataAnnotations;
 
     using MySkillsServer.Common.ValidationAttributes;
+    using MySkillsServer.Data.Models;
+    using MySkillsServer.Services.Mapping;
 
-    public class ExperianceCreateInputModel
+    public class ExperianceCreateInputModel : IMapTo<Experiance>
     {
         public string Url { get; set; }
 

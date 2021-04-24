@@ -29,6 +29,7 @@
                               new SettingsSeeder(),
                               new EducationsSeeder(),
                               new ExperiancesSeeder(),
+                              new ContactsSeeder(),
                           };
 
             foreach (var seeder in seeders)
