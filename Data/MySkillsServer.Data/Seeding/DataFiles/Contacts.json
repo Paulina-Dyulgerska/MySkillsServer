@@ -1,0 +1,26 @@
+﻿[
+  {
+    "Icon": "fas fa-phone-volume",
+    "Title": "Call Me Now",
+    "Link": "",
+    "LinkText": "+359887684868"
+  },
+  {
+    "Icon": "fas fa-envelope-open-text",
+    "Title": "Contact Me",
+    "Link": "",
+    "LinkText": "paylina_st@yahoo.com"
+  },
+  {
+    "Icon": "fas fa-street-view",
+    "Title": "Get Me Here",
+    "Link": "",
+    "LinkText": "4003 - Plovidv, Bulgaria"
+  },
+  {
+    "Icon": "fas fa-headphones",
+    "Title": "Watch Me",
+    "Link": "",
+    "LinkText": "paulinaweb.com && dotnetweb.net"
+  }
+]  
