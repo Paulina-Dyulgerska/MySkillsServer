@@ -2,9 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using MySkillsServer.Common.ValidationAttributes;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Mapping;
+    using MySkillsServer.Web.Infrastructure.ValidationAttributes;
 
     public class EducationCreateInputModel : IMapTo<Education>
     {
