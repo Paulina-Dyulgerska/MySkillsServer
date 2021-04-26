@@ -1,11 +1,11 @@
-﻿namespace MySkillsServer.Web.ViewModels.Experiances
+﻿namespace MySkillsServer.Web.ViewModels.Experiences
 {
     using System;
 
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Mapping;
 
-    public class ExperianceExportModel : IMapFrom<Experiance>
+    public class ExperienceExportModel : IMapFrom<Experience>
     {
         public int Id { get; set; }
 

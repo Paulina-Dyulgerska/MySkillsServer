@@ -4,7 +4,7 @@
 
     using MySkillsServer.Data.Common.Models;
 
-    public class Experiance : BaseModel<int>
+    public class Experience : BaseModel<int>
     {
         public string Url { get; set; }
 

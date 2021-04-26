@@ -1,4 +1,4 @@
-﻿namespace MySkillsServer.Web.ViewModels.Experiances
+﻿namespace MySkillsServer.Web.ViewModels.Experiences
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@
     using MySkillsServer.Services.Mapping;
     using MySkillsServer.Web.Infrastructure.ValidationAttributes;
 
-    public class ExperianceCreateInputModel : IMapTo<Experiance>
+    public class ExperienceCreateInputModel : IMapTo<Experience>
     {
         public string Url { get; set; }
 

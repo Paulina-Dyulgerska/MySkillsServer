@@ -28,7 +28,7 @@
                               new RolesSeeder(),
                               new SettingsSeeder(),
                               new EducationsSeeder(),
-                              new ExperiancesSeeder(),
+                              new ExperiencesSeeder(),
                               new ContactsSeeder(),
                           };
 

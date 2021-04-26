@@ -11,25 +11,25 @@
     using MySkillsServer.Services.Data;
     using MySkillsServer.Services.Data.Models;
 
-    public class ExperiancesSeeder : ISeeder
+    public class ExperiencesSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            if (dbContext.Experiances.Any())
+            if (dbContext.Experiences.Any())
             {
                 return;
             }
 
             var jsonEducations = File
-                .ReadAllText("../../../MySkillsServer/Data/MySkillsServer.Data/Seeding/DataFiles/Experiances.json");
-            var experiances = JsonSerializer.Deserialize<IEnumerable<ExperianceDTO>>(jsonEducations);
-            var experiancesService = serviceProvider.GetRequiredService<IExperiancesSeedService>();
+                .ReadAllText("../../../MySkillsServer/Data/MySkillsServer.Data/Seeding/DataFiles/Experiences.json");
+            var experiences = JsonSerializer.Deserialize<IEnumerable<ExperienceDTO>>(jsonEducations);
+            var experiencesService = serviceProvider.GetRequiredService<IExperiencesSeedService>();
 
-            foreach (var experiance in experiances)
+            foreach (var experience in experiences)
             {
                 try
                 {
-                    await experiancesService.CreateAsync(experiance);
+                    await experiencesService.CreateAsync(experience);
                 }
                 catch (Exception)
                 {

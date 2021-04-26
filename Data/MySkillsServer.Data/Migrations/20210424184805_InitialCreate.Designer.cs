@@ -319,7 +319,7 @@ namespace MySkillsServer.Data.Migrations
                     b.ToTable("Educations");
                 });
 
-            modelBuilder.Entity("MySkillsServer.Data.Models.Experiance", b =>
+            modelBuilder.Entity("MySkillsServer.Data.Models.Experience", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -363,7 +363,7 @@ namespace MySkillsServer.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Experiances");
+                    b.ToTable("Experiences");
                 });
 
             modelBuilder.Entity("MySkillsServer.Data.Models.Setting", b =>
@@ -458,7 +458,7 @@ namespace MySkillsServer.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MySkillsServer.Data.Models.Experiance", b =>
+            modelBuilder.Entity("MySkillsServer.Data.Models.Experience", b =>
                 {
                     b.HasOne("MySkillsServer.Data.Models.ApplicationUser", "User")
                         .WithMany()

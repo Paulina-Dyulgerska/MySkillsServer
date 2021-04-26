@@ -77,12 +77,12 @@
 
             // Application services
             services.AddTransient<IEducationsSeedService, EducationsSeedService>();
-            services.AddTransient<IExperiancesSeedService, ExperiancesSeedService>();
+            services.AddTransient<IExperiencesSeedService, ExperiencesSeedService>();
             services.AddTransient<IContactsSeedService, ContactsSeedService>();
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IEducationsService, EducationsService>();
-            services.AddTransient<IExperiancesService, ExperiancesService>();
+            services.AddTransient<IExperiencesService, ExperiencesService>();
             services.AddTransient<IContactsService, ContactsService>();
         }
 

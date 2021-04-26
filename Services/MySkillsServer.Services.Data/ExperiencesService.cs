@@ -11,35 +11,35 @@
     using MySkillsServer.Data.Common.Repositories;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Mapping;
-    using MySkillsServer.Web.ViewModels.Experiances;
+    using MySkillsServer.Web.ViewModels.Experiences;
 
-    public class ExperiancesService : IExperiancesService
+    public class ExperiencesService : IExperiencesService
     {
-        private readonly IRepository<Experiance> experiancesRepository;
+        private readonly IRepository<Experience> experiencesRepository;
 
-        public ExperiancesService(IRepository<Experiance> experiancesRepository)
+        public ExperiencesService(IRepository<Experience> experiencesRepository)
         {
-            this.experiancesRepository = experiancesRepository;
+            this.experiencesRepository = experiencesRepository;
         }
 
         public int GetCount()
         {
-            return this.experiancesRepository.AllAsNoTracking().Count();
+            return this.experiencesRepository.AllAsNoTracking().Count();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            return await this.experiancesRepository.All().To<T>().ToListAsync();
+            return await this.experiencesRepository.All().To<T>().ToListAsync();
         }
 
         public async Task<IEnumerable<T>> GetAllAsNoTrackingAsync<T>()
         {
-            return await this.experiancesRepository.AllAsNoTracking().To<T>().ToListAsync();
+            return await this.experiencesRepository.AllAsNoTracking().To<T>().ToListAsync();
         }
 
         public async Task<IEnumerable<T>> GetAllAsNoTrackingOrderedAsync<T>()
         {
-            return await this.experiancesRepository
+            return await this.experiencesRepository
                 .AllAsNoTracking()
                 .OrderByDescending(x => x.EndDate)
                 .To<T>()
@@ -48,7 +48,7 @@
 
         public async Task<IEnumerable<T>> GetOrderedAsPagesAsync<T>(string sortOrder, int page, int itemsPerPage)
         {
-            return await this.experiancesRepository
+            return await this.experiencesRepository
                                 .AllAsNoTracking()
                                 .OrderByDescending(x => x.EndDate)
                                 .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
@@ -58,7 +58,7 @@
 
         public async Task<T> GetByIdAsync<T>(int id)
         {
-            return await this.experiancesRepository
+            return await this.experiencesRepository
                 .All()
                 .Where(x => x.Id == id)
                 .To<T>()
@@ -66,26 +66,26 @@
         }
 
         // public async Task CreateAsync(EducationCreateInputModel input, string userId)
-        public async Task<int> CreateAsync(ExperianceCreateInputModel input)
+        public async Task<int> CreateAsync(ExperienceCreateInputModel input)
         {
             // var userEntity = this.usersRepository.AllAsNoTracking()
             //   .FirstOrDefault(x => x.UserName == articleInputModel.UserId);
             //// take the user and record its id in the article, product, conformity, etc.
-            var entity = new Experiance();
+            var entity = new Experience();
 
             this.InstanceBuilder(input, entity);
 
-            await this.experiancesRepository.AddAsync(entity);
+            await this.experiencesRepository.AddAsync(entity);
 
-            await this.experiancesRepository.SaveChangesAsync();
+            await this.experiencesRepository.SaveChangesAsync();
 
             return entity.Id;
         }
 
         // public async Task EditAsync(EducationEditInputModel input, string userId)
-        public async Task<int> EditAsync(ExperianceEditInputModel input)
+        public async Task<int> EditAsync(ExperienceEditInputModel input)
         {
-            var entity = await this.experiancesRepository
+            var entity = await this.experiencesRepository
                 .All()
                 .FirstOrDefaultAsync(x => x.Id == input.Id);
 
@@ -94,20 +94,20 @@
             // take the user and record its id in the article, product, conformity, etc.\\
             this.InstanceBuilder(input, entity);
 
-            await this.experiancesRepository.SaveChangesAsync();
+            await this.experiencesRepository.SaveChangesAsync();
 
             return entity.Id;
         }
 
         public async Task<int> DeleteAsync(int id)
         {
-            var entity = await this.experiancesRepository.All().FirstOrDefaultAsync(x => x.Id == id);
-            this.experiancesRepository.Delete(entity);
+            var entity = await this.experiencesRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            this.experiencesRepository.Delete(entity);
 
-            return await this.experiancesRepository.SaveChangesAsync();
+            return await this.experiencesRepository.SaveChangesAsync();
         }
 
-        private void InstanceBuilder(ExperianceCreateInputModel input, Experiance entity)
+        private void InstanceBuilder(ExperienceCreateInputModel input, Experience entity)
         {
             entity.Url = input.Url.Trim();
             entity.Logo = input.Logo.Trim();
@@ -120,7 +120,7 @@
             this.EndDateParser(input, entity);
         }
 
-        private void EndDateParser(ExperianceCreateInputModel input, Experiance entity)
+        private void EndDateParser(ExperienceCreateInputModel input, Experience entity)
         {
             if (input.EndDate != null)
             {

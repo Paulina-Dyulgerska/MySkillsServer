@@ -225,7 +225,7 @@ namespace MySkillsServer.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Experiances",
+                name: "Experiences",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -244,9 +244,9 @@ namespace MySkillsServer.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Experiances", x => x.Id);
+                    table.PrimaryKey("PK_Experiences", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Experiances_AspNetUsers_UserId",
+                        name: "FK_Experiences_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -308,8 +308,8 @@ namespace MySkillsServer.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Experiances_UserId",
-                table: "Experiances",
+                name: "IX_Experiences_UserId",
+                table: "Experiences",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -342,7 +342,7 @@ namespace MySkillsServer.Data.Migrations
                 name: "Educations");
 
             migrationBuilder.DropTable(
-                name: "Experiances");
+                name: "Experiences");
 
             migrationBuilder.DropTable(
                 name: "Settings");

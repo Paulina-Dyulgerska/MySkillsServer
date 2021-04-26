@@ -4,8 +4,8 @@
 
     using MySkillsServer.Services.Data.Models;
 
-    public interface IExperiancesSeedService
+    public interface IExperiencesSeedService
     {
-        public Task CreateAsync(ExperianceDTO experianceDTO);
+        public Task CreateAsync(ExperienceDTO experienceDTO);
     }
 }

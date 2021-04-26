@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using MySkillsServer.Web.ViewModels.Experiances;
+    using MySkillsServer.Web.ViewModels.Experiences;
 
-    public interface IExperiancesService
+    public interface IExperiencesService
     {
         int GetCount();
 
@@ -19,10 +19,10 @@
 
         Task<T> GetByIdAsync<T>(int id);
 
-        // Task CreateAsync(EducationCreateInputModel input, string userId);
-        Task<int> CreateAsync(ExperianceCreateInputModel input);
+        // Task CreateAsync(ExperienceCreateInputModel input, string userId);
+        Task<int> CreateAsync(ExperienceCreateInputModel input);
 
-        Task<int> EditAsync(ExperianceEditInputModel input);
+        Task<int> EditAsync(ExperienceEditInputModel input);
 
         Task<int> DeleteAsync(int id);
     }

@@ -7,27 +7,27 @@
     using Microsoft.AspNetCore.Mvc;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Data;
-    using MySkillsServer.Web.ViewModels.Experiances;
+    using MySkillsServer.Web.ViewModels.Experiences;
 
     [Route("api/[controller]")]
     [ApiController]
-    public class ExperiancesController : ControllerBase
+    public class ExperiencesController : ControllerBase
     {
-        private readonly IExperiancesService experiancesService;
+        private readonly IExperiencesService experiencesService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public ExperiancesController(IExperiancesService experiancesService, UserManager<ApplicationUser> userManager)
+        public ExperiencesController(IExperiencesService experiencesService, UserManager<ApplicationUser> userManager)
         {
-            this.experiancesService = experiancesService;
+            this.experiencesService = experiencesService;
             this.userManager = userManager;
         }
 
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<IEnumerable<ExperianceExportModel>>> GetAll()
+        public async Task<ActionResult<IEnumerable<ExperienceExportModel>>> GetAll()
         {
-            var models = await this.experiancesService.GetAllAsNoTrackingOrderedAsync<ExperianceExportModel>();
+            var models = await this.experiencesService.GetAllAsNoTrackingOrderedAsync<ExperienceExportModel>();
 
             if (models == null)
             {
@@ -41,9 +41,9 @@
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<ExperianceExportModel>> GetById(int id)
+        public async Task<ActionResult<ExperienceExportModel>> GetById(int id)
         {
-            var model = await this.experiancesService.GetByIdAsync<ExperianceExportModel>(id);
+            var model = await this.experiencesService.GetByIdAsync<ExperienceExportModel>(id);
 
             if (model == null)
             {
@@ -58,14 +58,14 @@
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult> Post(ExperianceCreateInputModel input)
+        public async Task<ActionResult> Post(ExperienceCreateInputModel input)
         {
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             // var user = await this.userManager.GetUserAsync(this.User);
 
             // await this.educationsService.CreateAsync(input, user.Id);
-            var inputId = await this.experiancesService.CreateAsync(input);
-            var model = await this.experiancesService.GetByIdAsync<ExperianceExportModel>(inputId);
+            var inputId = await this.experiencesService.CreateAsync(input);
+            var model = await this.experiencesService.GetByIdAsync<ExperienceExportModel>(inputId);
 
             return this.CreatedAtAction(nameof(this.GetById), new { id = model.Id }, model);
         }
@@ -76,14 +76,14 @@
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<ExperianceExportModel>> Put(int id, ExperianceEditInputModel input)
+        public async Task<ActionResult<ExperienceExportModel>> Put(int id, ExperienceEditInputModel input)
         {
             if (id != input.Id)
             {
                 return this.BadRequest();
             }
 
-            var model = await this.experiancesService.GetByIdAsync<ExperianceExportModel>(id);
+            var model = await this.experiencesService.GetByIdAsync<ExperienceExportModel>(id);
 
             if (model == null)
             {
@@ -93,8 +93,8 @@
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             // var user = await this.userManager.GetUserAsync(this.User);
 
-            // await this.experiancesService.EditAsync(input, user.Id);
-            await this.experiancesService.EditAsync(input);
+            // await this.experiencesService.EditAsync(input, user.Id);
+            await this.experiencesService.EditAsync(input);
 
             return this.NoContent();
         }
@@ -106,14 +106,14 @@
         [ProducesResponseType(404)]
         public async Task<ActionResult> Delete(int id)
         {
-            var model = await this.experiancesService.GetByIdAsync<ExperianceExportModel>(id);
+            var model = await this.experiencesService.GetByIdAsync<ExperienceExportModel>(id);
 
             if (model == null)
             {
                 return this.NotFound();
             }
 
-            await this.experiancesService.DeleteAsync(id);
+            await this.experiencesService.DeleteAsync(id);
 
             return this.Ok();
         }

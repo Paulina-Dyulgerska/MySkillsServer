@@ -27,7 +27,7 @@
 
         public DbSet<Education> Educations { get; set; }
 
-        public DbSet<Experiance> Experiances { get; set; }
+        public DbSet<Experience> Experiences { get; set; }
 
         public DbSet<Contact> Contacts { get; set; }
 

@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class ExperianceDTO
+    public class ExperienceDTO
     {
         public string Url { get; set; }
 
