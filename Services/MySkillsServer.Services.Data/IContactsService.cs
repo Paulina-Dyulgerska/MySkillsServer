@@ -1,8 +1,9 @@
 ﻿namespace MySkillsServer.Services.Data
 {
-    using MySkillsServer.Web.ViewModels.Contacts;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using MySkillsServer.Web.ViewModels.Contacts;
 
     public interface IContactsService
     {

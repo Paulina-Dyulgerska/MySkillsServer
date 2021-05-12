@@ -70,14 +70,13 @@
             // var userEntity = this.usersRepository.AllAsNoTracking()
             //   .FirstOrDefault(x => x.UserName == articleInputModel.UserId);
             //// take the user and record its id in the article, product, conformity, etc.
-            //var entity = new Contact
-            //{
+            // var entity = new Contact
+            // {
             //    Icon = input.Icon.Trim(),
             //    Title = input.Title.Trim(),
             //    Link = input.Link.Trim(),
             //    LinkText = input.LinkText.Trim(),
-            //};
-
+            // };
             var entity = input.To<Contact>();
 
             await this.contactsRepository.AddAsync(entity);

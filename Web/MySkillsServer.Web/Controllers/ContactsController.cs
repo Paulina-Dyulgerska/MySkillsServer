@@ -14,6 +14,7 @@
     // REST /api/contacts
     [Route("api/[controller]")]
     [ApiController]
+    // [Authorize]
     public class ContactsController : ControllerBase
     {
         private readonly IContactsService contactsService;

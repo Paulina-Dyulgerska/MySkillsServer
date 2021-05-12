@@ -11,6 +11,7 @@
 
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class ExperiencesController : ControllerBase
     {
         private readonly IExperiencesService experiencesService;

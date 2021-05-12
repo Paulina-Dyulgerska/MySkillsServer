@@ -12,21 +12,25 @@
 
     // REST /api/educations
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class EducationsController : ControllerBase
     {
         private readonly IEducationsService educationsService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public EducationsController(IEducationsService educationsService, UserManager<ApplicationUser> userManager)
+        public EducationsController(IEducationsService educationsService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             this.educationsService = educationsService;
             this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<EducationExportModel>>> GetAll()
         {
             var models = await this.educationsService.GetAllAsNoTrackingOrderedAsync<EducationExportModel>();
@@ -35,6 +39,11 @@
             {
                 return this.NotFound();
             }
+
+            var user = this.User;
+            var asdd = user.Identity.IsAuthenticated;
+
+            await this.signInManager.SignOutAsync();
 
             return this.Ok(models);
         }

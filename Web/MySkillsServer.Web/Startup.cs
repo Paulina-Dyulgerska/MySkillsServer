@@ -1,7 +1,9 @@
 ﻿namespace MySkillsServer.Web
 {
+    using System;
     using System.Reflection;
-
+    using System.Text;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -10,6 +12,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.IdentityModel.Tokens;
     using MySkillsServer.Data;
     using MySkillsServer.Data.Common;
     using MySkillsServer.Data.Common.Repositories;
@@ -19,6 +22,7 @@
     using MySkillsServer.Services.Data;
     using MySkillsServer.Services.Mapping;
     using MySkillsServer.Services.Messaging;
+    using MySkillsServer.Web.Infrastructure.Settings;
     using MySkillsServer.Web.ViewModels;
 
     public class Startup
@@ -38,8 +42,45 @@
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
+            // Configure strongly typed settings objects
+            var jwtSettingsSection = this.configuration.GetSection("JwtSettings");
+            services.Configure<JwtSettings>(jwtSettingsSection);
+            var facebookLoginSettingsSection = this.configuration.GetSection("FacebookLoginSettings");
+            services.Configure<FacebookLoginSettings>(facebookLoginSettingsSection);
+
+            // Configure JWT authentication services
+            var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
+            var jwtSecretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret));
+
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddFacebook(options =>
+                {
+                    options.AppId = this.configuration["FacebookLoginSettings:AppId"];
+                    options.AppSecret = this.configuration["FacebookLoginSettings:AppSecret"];
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = jwtSecretKey,
+                        ValidateIssuer = true,
+                        ValidIssuer = jwtSettings.Issuer,
+                        ValidateAudience = true,
+                        ValidAudience = jwtSettings.Audience,
+                        ValidateLifetime = true,
+                    };
+                });
+
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+                    .AddRoles<ApplicationRole>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -84,6 +125,7 @@
             services.AddTransient<IEducationsService, EducationsService>();
             services.AddTransient<IExperiencesService, ExperiencesService>();
             services.AddTransient<IContactsService, ContactsService>();
+            services.AddTransient<IAccountsService, AccountsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
