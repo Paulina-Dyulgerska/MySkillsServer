@@ -30,7 +30,7 @@
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<IEnumerable<EducationExportModel>>> GetAll()
         {
             var models = await this.educationsService.GetAllAsNoTrackingOrderedAsync<EducationExportModel>();
