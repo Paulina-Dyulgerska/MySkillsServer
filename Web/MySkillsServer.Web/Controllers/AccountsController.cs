@@ -73,6 +73,7 @@
                 return this.BadRequest(new { Message = "Invalid login attempt" });
             }
 
+            //return this.Ok(this.User.Identity.IsAuthenticated);
             return this.Ok(token);
         }
 

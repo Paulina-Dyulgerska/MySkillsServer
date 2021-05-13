@@ -1,4 +1,4 @@
-﻿namespace MySkillsServer.Web.Infrastructure.ValidationAttributes
+﻿namespace MySkillsServer.Common.ValidationAttributes
 {
     using System.ComponentModel.DataAnnotations;
     using System.Text.RegularExpressions;

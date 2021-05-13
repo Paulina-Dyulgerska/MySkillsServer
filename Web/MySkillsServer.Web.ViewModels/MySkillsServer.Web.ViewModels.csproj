@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFramework>netstandard2.1</TargetFramework>
+	  <TargetFramework>net5.0</TargetFramework>
 	  <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
@@ -16,13 +16,13 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.312" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\MySkillsServer.Data.Models\MySkillsServer.Data.Models.csproj" />
     <ProjectReference Include="..\..\MySkillsServer.Common\MySkillsServer.Common.csproj" />
     <ProjectReference Include="..\..\Services\MySkillsServer.Services.Mapping\MySkillsServer.Services.Mapping.csproj" />
-    <ProjectReference Include="..\MySkillsServer.Web.Infrastructure\MySkillsServer.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

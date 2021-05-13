@@ -1,17 +1,23 @@
 ﻿namespace MySkillsServer.Web
 {
     using System;
+    using System.Linq;
     using System.Reflection;
+    using System.Security.Claims;
+    using System.Security.Principal;
     using System.Text;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
     using MySkillsServer.Data;
     using MySkillsServer.Data.Common;
@@ -22,6 +28,7 @@
     using MySkillsServer.Services.Data;
     using MySkillsServer.Services.Mapping;
     using MySkillsServer.Services.Messaging;
+    using MySkillsServer.Web.Infrastructure.Middlewares.Authorization;
     using MySkillsServer.Web.Infrastructure.Settings;
     using MySkillsServer.Web.ViewModels;
 
@@ -54,8 +61,8 @@
 
             services.AddAuthentication(options =>
                 {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    //options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    //options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
                 .AddFacebook(options =>
                 {
@@ -162,6 +169,9 @@
 
             app.UseAuthentication();
             app.UseAuthorization();
+            //app.UseJwtBearerTokens(
+            //    app.ApplicationServices.GetRequiredService<IOptions<TokenProviderOptions>>(),
+            //    PrincipalResolver);
 
             app.UseEndpoints(
                 endpoints =>
@@ -171,5 +181,31 @@
                         endpoints.MapRazorPages();
                     });
         }
+
+        //private static async Task<GenericPrincipal> PrincipalResolver(HttpContext context)
+        //{
+        //    var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
+        //    var email = context.Request.Form["email"];
+        //    var user = await userManager.FindByEmailAsync(email);
+        //    if (user == null || user.IsDeleted)
+        //    {
+        //        return null;
+        //    }
+
+        //    var password = context.Request.Form["password"];
+
+        //    var isValidPassword = await userManager.CheckPasswordAsync(user, password);
+        //    if (!isValidPassword)
+        //    {
+        //        return null;
+        //    }
+
+        //    var roles = await userManager.GetRolesAsync(user);
+
+        //    var identity = new GenericIdentity(email, "Token");
+        //    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
+
+        //    return new GenericPrincipal(identity, roles.ToArray());
+        //}
     }
 }
