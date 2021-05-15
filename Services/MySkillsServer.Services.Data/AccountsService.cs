@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
+    using MySkillsServer.Common;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Web.Infrastructure.Settings;
     using MySkillsServer.Web.ViewModels.Accounts;
@@ -40,6 +41,7 @@
                                     {
                                         new Claim(ClaimTypes.Email, user.Email),
                                         new Claim(ClaimTypes.NameIdentifier, user.Id),
+                                        new Claim(ClaimTypes.Role, GlobalConstants.AdministratorRoleName),
                                     }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(

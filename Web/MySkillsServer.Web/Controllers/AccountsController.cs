@@ -32,7 +32,7 @@
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> WhoAmI()
         {
             var user = await this.userManager.GetUserAsync(this.User);
