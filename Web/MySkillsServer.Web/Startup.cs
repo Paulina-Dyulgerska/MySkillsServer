@@ -1,6 +1,7 @@
 ﻿namespace MySkillsServer.Web
 {
     using System;
+    using System.Collections;
     using System.Linq;
     using System.Reflection;
     using System.Security.Claims;
@@ -36,7 +37,16 @@
     {
         private readonly IConfiguration configuration;
         private readonly string allowSpecificOrigins = "AllowSpecificOrigins";
-        private readonly string corsAllowedUrl = "http://localhost:3000";
+
+        // private readonly string corsAllowedUrl1 = "http://localhost:3000";
+        // private readonly string corsAllowedUrl2 = "https://myskills-pd.web.app";
+        // private readonly string corsAllowedUrl3 = "https://myskills.dotnetweb.net";
+        private readonly string[] allowedDomains = new[]
+        {
+            "http://localhost:3000",
+            "https://myskills-pd.web.app",
+            "https://myskills.dotnetweb.net",
+        };
 
         public Startup(IConfiguration configuration)
         {
@@ -101,9 +111,10 @@
                 options.AddPolicy(
                                     name: this.allowSpecificOrigins,
                                     builder => builder
+                                            .WithOrigins(origins: this.allowedDomains)
                                             .AllowAnyMethod()
                                             .AllowCredentials()
-                                            .SetIsOriginAllowed((host) => { return host == this.corsAllowedUrl; })
+                                            //.SetIsOriginAllowed((host) => { return host == this.corsAllowedUrl1; })
                                             .AllowAnyHeader());
             });
 
