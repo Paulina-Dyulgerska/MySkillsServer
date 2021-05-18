@@ -111,10 +111,15 @@
                 options.AddPolicy(
                                     name: this.allowSpecificOrigins,
                                     builder => builder
+                                            // for a list with URLs:
                                             .WithOrigins(origins: this.allowedDomains)
+                                            // for a specific URL:
+                                            // .SetIsOriginAllowed((host) => { return host == this.corsAllowedUrl1; })
+                                            // for all subdomeins:
+                                            // .SetIsOriginAllowedToAllowWildcardSubdomains()
+                                            // .WithOrigins("https://*.dotnetweb.net")
                                             .AllowAnyMethod()
                                             .AllowCredentials()
-                                            //.SetIsOriginAllowed((host) => { return host == this.corsAllowedUrl1; })
                                             .AllowAnyHeader());
             });
 
