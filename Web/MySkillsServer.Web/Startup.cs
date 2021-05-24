@@ -129,7 +129,9 @@
                         // options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     }).AddRazorRuntimeCompilation()
                     .AddXmlSerializerFormatters();
+
             services.AddRazorPages();
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(this.configuration);
@@ -185,43 +187,47 @@
 
             app.UseAuthentication();
             app.UseAuthorization();
-            //app.UseJwtBearerTokens(
-            //    app.ApplicationServices.GetRequiredService<IOptions<TokenProviderOptions>>(),
-            //    PrincipalResolver);
 
+            // app.UseJwtBearerTokens(
+            // app.ApplicationServices.GetRequiredService<IOptions<TokenProviderOptions>>(),
+            // PrincipalResolver);
             app.UseEndpoints(
                 endpoints =>
                     {
-                        endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                        endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-                        endpoints.MapRazorPages();
+                        // without views and default loading page:
+                        endpoints.MapControllers();
+
+                        // with view and default loading page:
+                        // endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                        // endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                        // endpoints.MapRazorPages();
                     });
         }
 
-        //private static async Task<GenericPrincipal> PrincipalResolver(HttpContext context)
-        //{
-        //    var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
-        //    var email = context.Request.Form["email"];
-        //    var user = await userManager.FindByEmailAsync(email);
-        //    if (user == null || user.IsDeleted)
-        //    {
-        //        return null;
-        //    }
+        private static async Task<GenericPrincipal> PrincipalResolver(HttpContext context)
+        {
+            var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
+            var email = context.Request.Form["email"];
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null || user.IsDeleted)
+            {
+                return null;
+            }
 
-        //    var password = context.Request.Form["password"];
+            var password = context.Request.Form["password"];
 
-        //    var isValidPassword = await userManager.CheckPasswordAsync(user, password);
-        //    if (!isValidPassword)
-        //    {
-        //        return null;
-        //    }
+            var isValidPassword = await userManager.CheckPasswordAsync(user, password);
+            if (!isValidPassword)
+            {
+                return null;
+            }
 
-        //    var roles = await userManager.GetRolesAsync(user);
+            var roles = await userManager.GetRolesAsync(user);
 
-        //    var identity = new GenericIdentity(email, "Token");
-        //    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
+            var identity = new GenericIdentity(email, "Token");
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
 
-        //    return new GenericPrincipal(identity, roles.ToArray());
-        //}
+            return new GenericPrincipal(identity, roles.ToArray());
+        }
     }
 }

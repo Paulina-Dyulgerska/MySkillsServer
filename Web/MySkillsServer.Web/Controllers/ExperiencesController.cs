@@ -26,7 +26,7 @@
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<IEnumerable<ExperienceExportModel>>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
             var models = await this.experiencesService.GetAllAsNoTrackingOrderedAsync<ExperienceExportModel>();
 

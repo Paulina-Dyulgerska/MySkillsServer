@@ -31,7 +31,7 @@
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         //[Authorize]
-        public async Task<ActionResult<IEnumerable<EducationExportModel>>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
             var models = await this.educationsService.GetAllAsNoTrackingOrderedAsync<EducationExportModel>();
 
