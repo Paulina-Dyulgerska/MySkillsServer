@@ -1,5 +1,6 @@
 ﻿namespace MySkillsServer.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Security.Claims;
     using System.Security.Principal;
@@ -11,11 +12,12 @@
     using MySkillsServer.Common;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Data;
+    using MySkillsServer.Services.Mapping;
     using MySkillsServer.Web.ViewModels.Accounts;
 
     [ApiController]
     [Route("/api/[controller]")]
-    public class AccountsController : ControllerBase
+    public class AccountsController : BaseController
     {
         private readonly IAccountsService accountsService;
         private readonly UserManager<ApplicationUser> userManager;
@@ -40,7 +42,7 @@
             return this.Ok(user.UserName);
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginRequestModel input)
         {
             var user = await this.userManager.FindByEmailAsync(input.Email);
@@ -58,10 +60,10 @@
             }
 
             // sample code to run if user's credentials is valid and before login
-            //if (!await this.userManager.IsInRoleAsync(user, GlobalConstants.AdministratorRoleName))
-            //{
+            // if (!await this.userManager.IsInRoleAsync(user, GlobalConstants.AdministratorRoleName))
+            // {
             //    return this.BadRequest(new { Message = "You need higher permission to access this functionality" });
-            //}
+            // }
 
             var token = this.accountsService.Authenticate(user);
 
@@ -73,8 +75,48 @@
                 return this.BadRequest(new { Message = "Invalid login attempt" });
             }
 
-            //return this.Ok(this.User.Identity.IsAuthenticated);
+            // return this.Ok(this.User.Identity.IsAuthenticated);
             return this.Ok(token);
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] UserRegisterRequestModel input)
+        {
+
+            if (input == null || !this.ModelState.IsValid)
+            {
+                return this.BadRequest(new { Message = "Invalid register attempt" });
+            }
+
+            if (input.Password == input.ConfirmPassword
+                || string.IsNullOrWhiteSpace(input.Password)
+                || string.IsNullOrWhiteSpace(input.ConfirmPassword))
+            {
+                return this.BadRequest(new { Message = "Passwords must match and should not be empty" });
+            }
+
+            var user = input.To<ApplicationUser>();
+
+            var result = await this.userManager.CreateAsync(user, input.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    this.ModelState.AddModelError(string.Empty, error.Description);
+                }
+
+                return this.BadRequest(this.ModelState);
+            }
+
+            await this.userManager.AddToRoleAsync(user, GlobalConstants.GuestRoleName);
+
+            await this.signInManager.PasswordSignInAsync(input.Email, input.Password, isPersistent: false, lockoutOnFailure: false);
+
+            return this.Ok(new UserRegisterResponseModel
+            {
+                Id = user.Id,
+            });
         }
 
         private async Task<GenericPrincipal> PrincipalResolver(UserLoginRequestModel input)

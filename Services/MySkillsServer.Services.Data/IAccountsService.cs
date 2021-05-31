@@ -5,6 +5,6 @@
 
     public interface IAccountsService
     {
-        UserLoginResponseModel Authenticate(ApplicationUser user);
+        UserLoginResponseModel Authenticate(ApplicationUser input);
     }
 }

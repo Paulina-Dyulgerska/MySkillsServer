@@ -2,7 +2,10 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class UserLoginRequestModel
+    using MySkillsServer.Data.Models;
+    using MySkillsServer.Services.Mapping;
+
+    public class UserLoginRequestModel : IMapTo<ApplicationUser>
     {
         [Required]
         [EmailAddress]
