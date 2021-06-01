@@ -2,6 +2,7 @@
 {
     using System.Security.Claims;
 
+    //// JWT Authentication services 2
     public static class ClaimsPrincipalExtensions
     {
         public static string GetId(this ClaimsPrincipal claimsPrincipal)

@@ -65,7 +65,7 @@
             //    return this.BadRequest(new { Message = "You need higher permission to access this functionality" });
             // }
 
-            var token = this.accountsService.Authenticate(user);
+            var token = await this.accountsService.Authenticate(user);
 
             var result = await this.signInManager
                 .PasswordSignInAsync(input.Email, input.Password, isPersistent: false, lockoutOnFailure: false);
@@ -76,7 +76,7 @@
             }
 
             // return this.Ok(this.User.Identity.IsAuthenticated);
-            return this.Ok(token);
+            return this.Ok(token.AccessToken);
         }
 
         [HttpPost("register")]
@@ -117,6 +117,26 @@
             {
                 Id = user.Id,
             });
+        }
+
+        public Task<IActionResult> Logout([FromBody] UserRegisterRequestModel input)
+        {
+            // TODO this in the Client!!!!!!!!!!
+            // @page "/account/logout"
+
+            // < h1 > Logging out...</ h1 >
+
+            // @code {
+            //    protected override async Task OnInitializedAsync()
+            //        {
+            //            await this.JsRuntime.DeleteToken();
+            //            this.State.Username = null;
+            //            this.State.UserToken = null;
+            //            this.StateHasChanged();
+            //            this.NavigationManager.NavigateTo("/");
+            //        }
+            //    }
+            return null;
         }
 
         private async Task<GenericPrincipal> PrincipalResolver(UserLoginRequestModel input)

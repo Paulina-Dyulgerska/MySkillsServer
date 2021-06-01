@@ -5,6 +5,7 @@
 
     using Microsoft.IdentityModel.Tokens;
 
+    //// JWT Authentication services 2
     public class TokenProviderOptions
     {
         public string Path { get; set; } = "/token";
@@ -13,7 +14,7 @@
 
         public string Audience { get; set; }
 
-        public TimeSpan Expiration { get; set; } = TimeSpan.FromDays(15);
+        public TimeSpan Expiration { get; set; } = TimeSpan.FromDays(7);
 
         public Func<Task<string>> NonceGenerator { get; set; } = () => Task.FromResult(Guid.NewGuid().ToString());
 

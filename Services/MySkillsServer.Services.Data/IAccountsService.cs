@@ -1,10 +1,12 @@
 ﻿namespace MySkillsServer.Services.Data
 {
+    using System.Threading.Tasks;
+
     using MySkillsServer.Data.Models;
     using MySkillsServer.Web.ViewModels.Accounts;
 
     public interface IAccountsService
     {
-        UserLoginResponseModel Authenticate(ApplicationUser input);
+        Task<UserLoginResponseModel> Authenticate(ApplicationUser input);
     }
 }

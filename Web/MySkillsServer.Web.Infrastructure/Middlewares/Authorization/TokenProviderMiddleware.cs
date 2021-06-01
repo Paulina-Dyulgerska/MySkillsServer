@@ -16,6 +16,7 @@
 
     using MySkillsServer.Common;
 
+    //// JWT Authentication services 2
     public class TokenProviderMiddleware
     {
         private readonly RequestDelegate next;
@@ -40,6 +41,7 @@
             }
 
             if (context.Request.Method.Equals("POST") && context.Request.HasFormContentType)
+            //if (context.Request.Method.Equals("POST"))
             {
                 return this.GenerateToken(context);
             }

@@ -69,21 +69,23 @@
             var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
             var jwtSecretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret));
 
+            // JWT Authentication services 2
+            services.Configure<TokenProviderOptions>(opts =>
+            {
+                opts.Audience = jwtSettings.Audience;
+                opts.Issuer = jwtSettings.Issuer;
+                opts.Path = "/api/accounts/login";
+                opts.Expiration = TimeSpan.FromDays(7);
+                opts.SigningCredentials = new SigningCredentials(jwtSecretKey, SecurityAlgorithms.HmacSha256);
+            });
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddFacebook(options =>
+                .AddJwtBearer(opts =>
                 {
-                    options.AppId = this.configuration["FacebookLoginSettings:AppId"];
-                    options.AppSecret = this.configuration["FacebookLoginSettings:AppSecret"];
-                })
-                .AddJwtBearer(options =>
-                {
-                    options.RequireHttpsMetadata = false;
-                    options.SaveToken = true;
-                    options.TokenValidationParameters = new TokenValidationParameters
+                    opts.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = jwtSecretKey,
@@ -94,6 +96,33 @@
                         ValidateLifetime = true,
                     };
                 });
+
+            ////JWT Authentication services 1
+            //services.AddAuthentication(options =>
+            //    {
+            //        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    })
+            //    .AddFacebook(options =>
+            //    {
+            //        options.AppId = this.configuration["FacebookLoginSettings:AppId"];
+            //        options.AppSecret = this.configuration["FacebookLoginSettings:AppSecret"];
+            //    })
+            //    .AddJwtBearer(options =>
+            //    {
+            //        options.RequireHttpsMetadata = false;
+            //        options.SaveToken = true;
+            //        options.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            ValidateIssuerSigningKey = true,
+            //            IssuerSigningKey = jwtSecretKey,
+            //            ValidateIssuer = true,
+            //            ValidIssuer = jwtSettings.Issuer,
+            //            ValidateAudience = true,
+            //            ValidAudience = jwtSettings.Audience,
+            //            ValidateLifetime = true,
+            //        };
+            //    });
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                     .AddRoles<ApplicationRole>()
@@ -188,9 +217,11 @@
             app.UseAuthentication();
             app.UseAuthorization();
 
-            // app.UseJwtBearerTokens(
-            // app.ApplicationServices.GetRequiredService<IOptions<TokenProviderOptions>>(),
-            // PrincipalResolver);
+            // JWT Authentication services 2
+            app.UseJwtBearerTokens(
+                             app.ApplicationServices.GetRequiredService<IOptions<TokenProviderOptions>>(),
+                             PrincipalResolver);
+
             app.UseEndpoints(
                 endpoints =>
                     {
@@ -204,6 +235,7 @@
                     });
         }
 
+        // JWT Authentication services 2
         private static async Task<GenericPrincipal> PrincipalResolver(HttpContext context)
         {
             var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();

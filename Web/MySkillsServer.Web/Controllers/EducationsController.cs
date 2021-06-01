@@ -6,13 +6,15 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using MySkillsServer.Common;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Data;
     using MySkillsServer.Web.ViewModels.Educations;
 
     // REST /api/educations
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [ApiController]
     public class EducationsController : ControllerBase
     {
@@ -30,6 +32,7 @@
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
+        //[Authorize(Roles = "Administrator")]
         //[Authorize]
         public async Task<IActionResult> GetAll()
         {

@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Options;
 
+    //// JWT Authentication services 2
     public static class TokenProviderExtensions
     {
         public static void UseJwtBearerTokens(
