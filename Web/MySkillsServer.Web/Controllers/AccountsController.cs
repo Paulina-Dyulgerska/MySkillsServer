@@ -38,46 +38,48 @@
         public async Task<IActionResult> WhoAmI()
         {
             var user = await this.userManager.GetUserAsync(this.User);
+            var userEmail = this.User.FindFirst(ClaimTypes.Name).Value;
 
-            return this.Ok(user.UserName);
+            return this.Ok(userEmail);
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserLoginRequestModel input)
-        {
-            var user = await this.userManager.FindByEmailAsync(input.Email);
+        ////// JWT Authentication services 1
+        //[HttpPost("login")]
+        //public async Task<IActionResult> Login([FromBody] UserLoginRequestModel input)
+        //{
+        //    var user = await this.userManager.FindByEmailAsync(input.Email);
 
-            if (user == null || user.IsDeleted)
-            {
-                return this.BadRequest(new { Message = "No such user" });
-            }
+        //    if (user == null || user.IsDeleted)
+        //    {
+        //        return this.BadRequest(new { Message = "No such user" });
+        //    }
 
-            var validCredentials = await this.userManager.CheckPasswordAsync(user, input.Password);
+        //    var validCredentials = await this.userManager.CheckPasswordAsync(user, input.Password);
 
-            if (!validCredentials)
-            {
-                return this.BadRequest(new { Message = "Email or password is incorrect" });
-            }
+        //    if (!validCredentials)
+        //    {
+        //        return this.BadRequest(new { Message = "Email or password is incorrect" });
+        //    }
 
-            // sample code to run if user's credentials is valid and before login
-            // if (!await this.userManager.IsInRoleAsync(user, GlobalConstants.AdministratorRoleName))
-            // {
-            //    return this.BadRequest(new { Message = "You need higher permission to access this functionality" });
-            // }
+        //    // sample code to run if user's credentials is valid and before login
+        //    // if (!await this.userManager.IsInRoleAsync(user, GlobalConstants.AdministratorRoleName))
+        //    // {
+        //    //    return this.BadRequest(new { Message = "You need higher permission to access this functionality" });
+        //    // }
 
-            var token = await this.accountsService.Authenticate(user);
+        //    var result = await this.signInManager
+        //        .PasswordSignInAsync(input.Email, input.Password, isPersistent: false, lockoutOnFailure: false);
 
-            var result = await this.signInManager
-                .PasswordSignInAsync(input.Email, input.Password, isPersistent: false, lockoutOnFailure: false);
+        //    if (!result.Succeeded)
+        //    {
+        //        return this.BadRequest(new { Message = "Invalid login attempt" });
+        //    }
 
-            if (!result.Succeeded)
-            {
-                return this.BadRequest(new { Message = "Invalid login attempt" });
-            }
+        //    var token = await this.accountsService.Authenticate(user);
 
-            // return this.Ok(this.User.Identity.IsAuthenticated);
-            return this.Ok(token.AccessToken);
-        }
+        //    // return this.Ok(this.User.Identity.IsAuthenticated);
+        //    return this.Ok(token.AccessToken);
+        //}
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterRequestModel input)
@@ -96,6 +98,8 @@
             }
 
             var user = input.To<ApplicationUser>();
+            //user.BlogList.Add(new BlogList { IsSystem = true, Name = PlaylistsConstants.CurrentPlaylistName });
+            //user.Playlists.Add(new Playlist { IsSystem = true, Name = PlaylistsConstants.LikesPlaylistName });
 
             var result = await this.userManager.CreateAsync(user, input.Password);
 
@@ -137,28 +141,6 @@
             //        }
             //    }
             return null;
-        }
-
-        private async Task<GenericPrincipal> PrincipalResolver(UserLoginRequestModel input)
-        {
-            var user = await this.userManager.FindByEmailAsync(input.Email);
-            if (user == null || user.IsDeleted)
-            {
-                return null;
-            }
-
-            var isValidPassword = await this.userManager.CheckPasswordAsync(user, input.Password);
-            if (!isValidPassword)
-            {
-                return null;
-            }
-
-            var roles = await this.userManager.GetRolesAsync(user);
-
-            var identity = new GenericIdentity(user.Email, "Token");
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
-
-            return new GenericPrincipal(identity, roles.ToArray());
         }
     }
 }
