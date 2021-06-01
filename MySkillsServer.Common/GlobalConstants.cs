@@ -8,5 +8,7 @@
         public const string GuestRoleName = "Guest";
 
         public const string JsonContentType = "application/json";
+
+        public const string JwtCookieName = ".AspNetCore.Identity.Application";
     }
 }

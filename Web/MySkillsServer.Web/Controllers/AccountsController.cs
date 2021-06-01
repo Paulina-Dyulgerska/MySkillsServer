@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using MySkillsServer.Common;
@@ -43,43 +44,48 @@
             return this.Ok(userEmail);
         }
 
-        ////// JWT Authentication services 1
-        //[HttpPost("login")]
-        //public async Task<IActionResult> Login([FromBody] UserLoginRequestModel input)
-        //{
-        //    var user = await this.userManager.FindByEmailAsync(input.Email);
+        //// JWT Authentication services 1
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginRequestModel input)
+        {
+            var user = await this.userManager.FindByEmailAsync(input.Email);
 
-        //    if (user == null || user.IsDeleted)
-        //    {
-        //        return this.BadRequest(new { Message = "No such user" });
-        //    }
+            if (user == null || user.IsDeleted)
+            {
+                return this.BadRequest(new { Message = "No such user" });
+            }
 
-        //    var validCredentials = await this.userManager.CheckPasswordAsync(user, input.Password);
+            var validCredentials = await this.userManager.CheckPasswordAsync(user, input.Password);
 
-        //    if (!validCredentials)
-        //    {
-        //        return this.BadRequest(new { Message = "Email or password is incorrect" });
-        //    }
+            if (!validCredentials)
+            {
+                return this.BadRequest(new { Message = "Email or password is incorrect" });
+            }
 
-        //    // sample code to run if user's credentials is valid and before login
-        //    // if (!await this.userManager.IsInRoleAsync(user, GlobalConstants.AdministratorRoleName))
-        //    // {
-        //    //    return this.BadRequest(new { Message = "You need higher permission to access this functionality" });
-        //    // }
+            // sample code to run if user's credentials is valid and before login
+            // if (!await this.userManager.IsInRoleAsync(user, GlobalConstants.AdministratorRoleName))
+            // {
+            //    return this.BadRequest(new { Message = "You need higher permission to access this functionality" });
+            // }
 
-        //    var result = await this.signInManager
-        //        .PasswordSignInAsync(input.Email, input.Password, isPersistent: false, lockoutOnFailure: false);
+            var result = await this.signInManager
+                .PasswordSignInAsync(input.Email, input.Password, isPersistent: false, lockoutOnFailure: false);
 
-        //    if (!result.Succeeded)
-        //    {
-        //        return this.BadRequest(new { Message = "Invalid login attempt" });
-        //    }
+            if (!result.Succeeded)
+            {
+                return this.BadRequest(new { Message = "Invalid login attempt" });
+            }
 
-        //    var token = await this.accountsService.Authenticate(user);
+            var token = await this.accountsService.Authenticate(user);
 
-        //    // return this.Ok(this.User.Identity.IsAuthenticated);
-        //    return this.Ok(token.AccessToken);
-        //}
+            this.Response.Cookies.Append(GlobalConstants.JwtCookieName, token.AccessToken, new CookieOptions
+            {
+                HttpOnly = true,
+            });
+
+            // return this.Ok(this.User.Identity.IsAuthenticated);
+            return this.Ok(token.AccessToken);
+        }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterRequestModel input)
@@ -98,8 +104,8 @@
             }
 
             var user = input.To<ApplicationUser>();
-            //user.BlogList.Add(new BlogList { IsSystem = true, Name = PlaylistsConstants.CurrentPlaylistName });
-            //user.Playlists.Add(new Playlist { IsSystem = true, Name = PlaylistsConstants.LikesPlaylistName });
+            //user.BlogLists.Add(new BlogList { IsSystem = true, Name = BlogListConstants.CurrentBlogListName });
+            //user.BlogLists.Add(new BlogList { IsSystem = true, Name = BlogListConstants.LikesBlogListName });
 
             var result = await this.userManager.CreateAsync(user, input.Password);
 
@@ -123,7 +129,9 @@
             });
         }
 
-        public Task<IActionResult> Logout([FromBody] UserRegisterRequestModel input)
+        [HttpPost("logout")]
+        [Authorize]
+        public IActionResult Logout()
         {
             // TODO this in the Client!!!!!!!!!!
             // @page "/account/logout"
@@ -140,7 +148,11 @@
             //            this.NavigationManager.NavigateTo("/");
             //        }
             //    }
-            return null;
+
+            // delete JWT stored in the cookie:
+            this.Response.Cookies.Delete(GlobalConstants.JwtCookieName);
+
+            return this.Ok();
         }
     }
 }
