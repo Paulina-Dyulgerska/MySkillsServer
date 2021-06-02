@@ -69,39 +69,21 @@
             var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
             var jwtSecretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret));
 
-            //// JWT Authentication services 2
-            //services.Configure<TokenProviderOptions>(opts =>
-            //{
-            //    opts.Audience = jwtSettings.Audience;
-            //    opts.Issuer = jwtSettings.Issuer;
-            //    opts.Path = "/api/accounts/login";
-            //    opts.Expiration = TimeSpan.FromDays(7);
-            //    opts.SigningCredentials = new SigningCredentials(jwtSecretKey, SecurityAlgorithms.HmacSha256);
-            //});
-            //services.AddAuthentication(options =>
-            //    {
-            //        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    })
-            //    .AddJwtBearer(opts =>
-            //    {
-            //        opts.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuerSigningKey = true,
-            //            IssuerSigningKey = jwtSecretKey,
-            //            ValidateIssuer = true,
-            //            ValidIssuer = jwtSettings.Issuer,
-            //            ValidateAudience = true,
-            //            ValidAudience = jwtSettings.Audience,
-            //            ValidateLifetime = true,
-            //        };
-            //    });
+            //// JWT Authentication services for 1 and 2
+            services.Configure<TokenProviderOptions>(opts =>
+            {
+                opts.Audience = jwtSettings.Audience;
+                opts.Issuer = jwtSettings.Issuer;
+                opts.Path = "/api/accounts/login";
+                opts.Expiration = TimeSpan.FromDays(7);
+                opts.SigningCredentials = new SigningCredentials(jwtSecretKey, SecurityAlgorithms.HmacSha256);
+            });
 
-            //JWT Authentication services 1
             services.AddAuthentication(options =>
                 {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    //// JWT Authentication services 2
+                    //options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    //options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
                 .AddFacebook(options =>
                 {

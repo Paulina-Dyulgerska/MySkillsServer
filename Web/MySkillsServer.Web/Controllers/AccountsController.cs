@@ -76,15 +76,16 @@
                 return this.BadRequest(new { Message = "Invalid login attempt" });
             }
 
-            var token = await this.accountsService.Authenticate(user);
+            var response = await this.accountsService.Authenticate(user);
 
-            this.Response.Cookies.Append(GlobalConstants.JwtCookieName, token.AccessToken, new CookieOptions
+            // the name of the cookie is given by the Framework, could be skipped
+            this.Response.Cookies.Append(GlobalConstants.JwtCookieName, response.AccessToken, new CookieOptions
             {
                 HttpOnly = true,
             });
 
             // return this.Ok(this.User.Identity.IsAuthenticated);
-            return this.Ok(token.AccessToken);
+            return this.Ok(response);
         }
 
         [HttpPost("register")]
@@ -150,7 +151,9 @@
             //    }
 
             // delete JWT stored in the cookie:
-            this.Response.Cookies.Delete(GlobalConstants.JwtCookieName);
+            // this.Response.Cookies.Delete(GlobalConstants.JwtCookieName);
+            // this method deletes the Cookies too:
+            this.signInManager.SignOutAsync();
 
             return this.Ok();
         }
