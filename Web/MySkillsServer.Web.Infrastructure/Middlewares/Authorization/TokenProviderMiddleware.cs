@@ -41,7 +41,7 @@
             }
 
             if (context.Request.Method.Equals("POST") && context.Request.HasFormContentType)
-            //if (context.Request.Method.Equals("POST"))
+            // if (context.Request.Method.Equals("POST"))
             {
                 return this.GenerateToken(context);
             }

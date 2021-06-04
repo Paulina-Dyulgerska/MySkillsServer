@@ -9,6 +9,6 @@
 
         public const string JsonContentType = "application/json";
 
-        public const string JwtCookieName = ".AspNetCore.Identity.Application";
+        public const string JwtCookieName = "MySkillsCookie.AspNetCore.Identity.Application";
     }
 }

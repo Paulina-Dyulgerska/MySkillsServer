@@ -41,7 +41,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
             var userEmail = this.User.FindFirst(ClaimTypes.Name).Value;
 
-            return this.Ok(userEmail);
+            return this.Ok(user);
         }
 
         //// JWT Authentication services 1
@@ -68,8 +68,14 @@
             //    return this.BadRequest(new { Message = "You need higher permission to access this functionality" });
             // }
 
+            //var result = await this.signInManager
+            //   .PasswordSignInAsync(input.Email, input.Password, isPersistent: false, lockoutOnFailure: false);
+            //this.Response.Cookies.Delete(".AspNetCore.Identity.Application");
+            //this.Response.Headers.Remove("Set-Cookie");
+            // FOR JWT not use PasswordSignInAsync but CheckPasswordSignInAsync - the second DO NOT SEND Cookie from
+            // the Identiry server!
             var result = await this.signInManager
-                .PasswordSignInAsync(input.Email, input.Password, isPersistent: false, lockoutOnFailure: false);
+                .CheckPasswordSignInAsync(user, input.Password, lockoutOnFailure: false);
 
             if (!result.Succeeded)
             {
@@ -78,11 +84,16 @@
 
             var response = await this.accountsService.Authenticate(user);
 
-            // the name of the cookie is given by the Framework, could be skipped
-            this.Response.Cookies.Append(GlobalConstants.JwtCookieName, response.AccessToken, new CookieOptions
-            {
-                HttpOnly = true,
-            });
+            //// the name of the cookie is given by the Framework, can be changed by the Identity Server post configuration
+            // this.Response.Cookies.Append(GlobalConstants.JwtCookieName, response.AccessToken, new CookieOptions
+            // {
+            //    HttpOnly = true,
+            //    Secure = true,
+            //    // MaxAge = TimeSpan.FromTicks(response.ExpiresIn),
+            //    // MaxAge = TimeSpan.FromTicks(60),
+            //    // Expires = DateTimeOffset.UtcNow.AddMinutes(1),
+            //    // SameSite = SameSiteMode.None,
+            // });
 
             // return this.Ok(this.User.Identity.IsAuthenticated);
             return this.Ok(response);

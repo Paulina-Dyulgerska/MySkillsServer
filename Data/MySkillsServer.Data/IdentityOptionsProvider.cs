@@ -1,7 +1,8 @@
 ﻿namespace MySkillsServer.Data
 {
-    using Microsoft.AspNetCore.Identity;
     using System;
+
+    using Microsoft.AspNetCore.Identity;
 
     public static class IdentityOptionsProvider
     {
@@ -19,6 +20,7 @@
             options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
             options.Lockout.MaxFailedAccessAttempts = 5;
             options.Lockout.AllowedForNewUsers = true;
+
 
             // User settings.
             options.User.AllowedUserNameCharacters =

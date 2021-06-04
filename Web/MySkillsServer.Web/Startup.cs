@@ -8,6 +8,7 @@
     using System.Security.Principal;
     using System.Text;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -20,6 +21,7 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
+    using MySkillsServer.Common;
     using MySkillsServer.Data;
     using MySkillsServer.Data.Common;
     using MySkillsServer.Data.Common.Repositories;
@@ -59,6 +61,15 @@
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
+            // post configuration of the Identity Server Cookie:
+            //  services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme, option =>
+            //  {
+            //      option.Cookie.Name = GlobalConstants.JwtCookieName; // change cookie name
+
+            // // option.Cookie.SameSite = SameSiteMode.None; // not needed
+            // // option.ExpireTimeSpan = TimeSpan.FromSeconds(60); // change cookie expire time span - ignored by IdentityServer!
+            //  });
+
             // Configure strongly typed settings objects
             var jwtSettingsSection = this.configuration.GetSection("JwtSettings");
             services.Configure<JwtSettings>(jwtSettingsSection);
@@ -81,9 +92,9 @@
 
             services.AddAuthentication(options =>
                 {
-                    //// JWT Authentication services 2
-                    //options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    //options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    // JWT Authentication services 2 and 1 (when 1 is applied without cookie)
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
                 .AddFacebook(options =>
                 {
@@ -110,12 +121,12 @@
                     .AddRoles<ApplicationRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.Configure<CookiePolicyOptions>(
-                options =>
-                    {
-                        options.CheckConsentNeeded = context => true;
-                        options.MinimumSameSitePolicy = SameSiteMode.None;
-                    });
+            //services.Configure<CookiePolicyOptions>(
+            //    options =>
+            //        {
+            //            options.CheckConsentNeeded = context => true;
+            //            options.MinimumSameSitePolicy = SameSiteMode.None;
+            //        });
 
             services.AddCors(options =>
             {
@@ -130,7 +141,7 @@
                                             // .SetIsOriginAllowedToAllowWildcardSubdomains()
                                             // .WithOrigins("https://*.dotnetweb.net")
                                             .AllowAnyMethod()
-                                            .AllowCredentials() // to be able to send cookies to FE
+                                            //.AllowCredentials() // to be able to send cookies to FE
                                             .AllowAnyHeader());
             });
 
@@ -199,10 +210,10 @@
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //// JWT Authentication services 2
-            //app.UseJwtBearerTokens(
-            //                 app.ApplicationServices.GetRequiredService<IOptions<TokenProviderOptions>>(),
-            //                 PrincipalResolver);
+            // JWT Authentication services 2
+            app.UseJwtBearerTokens(
+                             app.ApplicationServices.GetRequiredService<IOptions<TokenProviderOptions>>(),
+                             PrincipalResolver);
 
             app.UseEndpoints(
                 endpoints =>
@@ -221,6 +232,7 @@
         private static async Task<GenericPrincipal> PrincipalResolver(HttpContext context)
         {
             var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
+            var form = await context.Request.ReadFormAsync();
             var email = context.Request.Form["email"];
             var user = await userManager.FindByEmailAsync(email);
             if (user == null || user.IsDeleted)
