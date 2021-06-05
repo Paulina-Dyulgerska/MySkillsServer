@@ -232,7 +232,6 @@
         private static async Task<GenericPrincipal> PrincipalResolver(HttpContext context)
         {
             var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
-            var form = await context.Request.ReadFormAsync();
             var email = context.Request.Form["email"];
             var user = await userManager.FindByEmailAsync(email);
             if (user == null || user.IsDeleted)
