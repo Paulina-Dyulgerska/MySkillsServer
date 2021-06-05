@@ -1,11 +1,11 @@
 ﻿namespace MySkillsServer.Web.ViewModels.Accounts
 {
     using System.ComponentModel.DataAnnotations;
-
+    using AutoMapper;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Mapping;
 
-    public class UserRegisterRequestModel : IMapTo<ApplicationUser>
+    public class UserRegisterRequestModel : IMapTo<ApplicationUser>, IHaveCustomMappings
     {
         [Required]
         [EmailAddress]
@@ -19,5 +19,13 @@
         [Compare(nameof(Password))]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<UserRegisterRequestModel, ApplicationUser>()
+                .ForMember(
+                x => x.UserName,
+                opt => opt.MapFrom(a => a.Email));
+        }
     }
 }

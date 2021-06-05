@@ -100,7 +100,7 @@
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] UserRegisterRequestModel input)
+        public async Task<IActionResult> Register([FromForm] UserRegisterRequestModel input)
         {
 
             if (input == null || !this.ModelState.IsValid)
@@ -108,7 +108,7 @@
                 return this.BadRequest(new { Message = "Invalid register attempt" });
             }
 
-            if (input.Password == input.ConfirmPassword
+            if (input.Password != input.ConfirmPassword
                 || string.IsNullOrWhiteSpace(input.Password)
                 || string.IsNullOrWhiteSpace(input.ConfirmPassword))
             {
@@ -116,9 +116,9 @@
             }
 
             var user = input.To<ApplicationUser>();
-            //user.BlogLists.Add(new BlogList { IsSystem = true, Name = BlogListConstants.CurrentBlogListName });
-            //user.BlogLists.Add(new BlogList { IsSystem = true, Name = BlogListConstants.LikesBlogListName });
 
+            // user.BlogLists.Add(new BlogList { IsSystem = true, Name = BlogListConstants.CurrentBlogListName });
+            // user.BlogLists.Add(new BlogList { IsSystem = true, Name = BlogListConstants.LikesBlogListName });
             var result = await this.userManager.CreateAsync(user, input.Password);
 
             if (!result.Succeeded)
@@ -133,8 +133,7 @@
 
             await this.userManager.AddToRoleAsync(user, GlobalConstants.GuestRoleName);
 
-            await this.signInManager.PasswordSignInAsync(input.Email, input.Password, isPersistent: false, lockoutOnFailure: false);
-
+            // await this.signInManager.PasswordSignInAsync(input.Email, input.Password, isPersistent: false, lockoutOnFailure: false);
             return this.Ok(new UserRegisterResponseModel
             {
                 Id = user.Id,
