@@ -26,7 +26,7 @@
             var seeders = new List<ISeeder>
                           {
                               new RolesSeeder(),
-                              new UsersSeeder(),
+                              new AdminUsersSeeder(),
                               new SettingsSeeder(),
                               new EducationsSeeder(),
                               new ExperiencesSeeder(),
