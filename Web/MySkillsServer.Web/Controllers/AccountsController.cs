@@ -35,13 +35,16 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Authorize(Roles = GlobalConstants.UserRoleName)]
         public async Task<IActionResult> WhoAmI()
         {
             var user = await this.userManager.GetUserAsync(this.User);
             var userEmail = this.User.FindFirst(ClaimTypes.Name).Value;
 
-            return this.Ok(user);
+            return this.Ok(new
+            {
+                UserEmail = userEmail,
+            });
         }
 
         //// JWT Authentication services 1
@@ -131,7 +134,7 @@
                 return this.BadRequest(this.ModelState);
             }
 
-            await this.userManager.AddToRoleAsync(user, GlobalConstants.GuestRoleName);
+            await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
 
             // await this.signInManager.PasswordSignInAsync(input.Email, input.Password, isPersistent: false, lockoutOnFailure: false);
             return this.Ok(new UserRegisterResponseModel

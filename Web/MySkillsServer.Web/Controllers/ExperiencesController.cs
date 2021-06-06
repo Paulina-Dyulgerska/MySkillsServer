@@ -5,13 +5,13 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using MySkillsServer.Common;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Data;
     using MySkillsServer.Web.ViewModels.Experiences;
 
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ExperiencesController : ControllerBase
     {
         private readonly IExperiencesService experiencesService;
@@ -56,6 +56,7 @@
 
         // [Authorize]
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
@@ -73,6 +74,7 @@
 
         // [Authorize]
         [HttpPut("{id}")]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -102,6 +104,7 @@
 
         // [Authorize]
         [HttpDelete("{id}")]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]

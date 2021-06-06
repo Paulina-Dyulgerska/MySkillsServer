@@ -4,9 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using MySkillsServer.Common;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Data;
     using MySkillsServer.Web.ViewModels.Contacts;
@@ -14,7 +16,6 @@
     // REST /api/contacts
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ContactsController : ControllerBase
     {
         private readonly IContactsService contactsService;
@@ -60,6 +61,7 @@
 
         // [Authorize]
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
@@ -77,6 +79,7 @@
 
         // [Authorize]
         [HttpPut("{id}")]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -106,6 +109,7 @@
 
         // [Authorize]
         [HttpDelete("{id}")]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]

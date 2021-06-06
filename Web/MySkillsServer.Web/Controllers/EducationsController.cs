@@ -14,7 +14,6 @@
     // REST /api/educations
     [Route("api/[controller]")]
     //[Authorize(AuthenticationSchemes = "Bearer")]
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [ApiController]
     public class EducationsController : ControllerBase
     {
@@ -32,8 +31,6 @@
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        //[Authorize(Roles = "Administrator")]
-        //[Authorize]
         public async Task<IActionResult> GetAll()
         {
             var models = await this.educationsService.GetAllAsNoTrackingOrderedAsync<EducationExportModel>();
@@ -67,8 +64,8 @@
             return this.Ok(model);
         }
 
-        // [Authorize]
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
@@ -84,8 +81,8 @@
             return this.CreatedAtAction(nameof(this.GetById), new { id = model.Id }, model);
         }
 
-        // [Authorize]
         [HttpPut("{id}")]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -113,8 +110,8 @@
             return this.NoContent();
         }
 
-        // [Authorize]
         [HttpDelete("{id}")]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
