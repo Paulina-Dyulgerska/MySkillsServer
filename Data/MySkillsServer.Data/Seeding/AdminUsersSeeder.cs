@@ -43,7 +43,9 @@
                     throw new Exception(string.Join(Environment.NewLine, resultUserAdd.Errors.Select(e => e.Description)));
                 }
 
-                var resultUserToRoleAdd = await userManager.AddToRoleAsync(user, GlobalConstants.AdministratorRoleName);
+                var resultUserToRoleAdd = await userManager.AddToRolesAsync(
+                    user,
+                    new[] { GlobalConstants.AdministratorRoleName, GlobalConstants.UserRoleName });
 
                 if (!resultUserToRoleAdd.Succeeded)
                 {

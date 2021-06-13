@@ -10,7 +10,7 @@ using MySkillsServer.Data;
 namespace MySkillsServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210424184805_InitialCreate")]
+    [Migration("20210606110928_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
