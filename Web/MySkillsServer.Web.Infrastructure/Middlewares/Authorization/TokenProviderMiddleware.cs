@@ -111,10 +111,10 @@
 
             var response = new
             {
-                AccessToken = encodedJwt,
-                ExpiresIn = (int)this.options.Expiration.TotalMilliseconds,
-                Roles = existingClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value),
-                UserEmail = existingClaims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value,
+                accessToken = encodedJwt,
+                expiresIn = (int)this.options.Expiration.TotalMilliseconds,
+                roles = existingClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value),
+                userEmail = existingClaims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value,
             };
 
             context.Response.ContentType = GlobalConstants.JsonContentType;

@@ -40,11 +40,17 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
             var userEmail = this.User.FindFirst(ClaimTypes.Name).Value;
+            var userRoles = this.User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(r => r.Value);
 
             return this.Ok(new
             {
                 UserEmail = userEmail,
+                UserRoles = userRoles,
             });
+
+            //var userWIthTokenAndClaims = this.accountsService.Authenticate(user);
+
+            //return this.Ok(userWIthTokenAndClaims);
         }
 
         //// JWT Authentication services 1
