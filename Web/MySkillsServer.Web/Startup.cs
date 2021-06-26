@@ -73,8 +73,12 @@
             // Configure strongly typed settings objects
             var jwtSettingsSection = this.configuration.GetSection("JwtSettings");
             services.Configure<JwtSettings>(jwtSettingsSection);
+
             var facebookLoginSettingsSection = this.configuration.GetSection("FacebookLoginSettings");
             services.Configure<FacebookLoginSettings>(facebookLoginSettingsSection);
+
+            var googleReCaptchaSettingsSection = this.configuration.GetSection("GoogleReCaptchaV3Settings");
+            services.Configure<ReCaptchaSettings>(googleReCaptchaSettingsSection);
 
             // Configure JWT authentication services
             var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
@@ -88,6 +92,14 @@
                 opts.Path = "/api/accounts/login";
                 opts.Expiration = TimeSpan.FromDays(7);
                 opts.SigningCredentials = new SigningCredentials(jwtSecretKey, SecurityAlgorithms.HmacSha256);
+            });
+
+            // Configure Google Reacptcha V3 verification services
+            var googleReCaptchaSettings = googleReCaptchaSettingsSection.Get<ReCaptchaSettings>();
+            services.Configure<ReCaptchaSettings>(opts =>
+            {
+                opts.Secret = googleReCaptchaSettings.Secret;
+                opts.ApiUrl = googleReCaptchaSettings.ApiUrl;
             });
 
             services.AddAuthentication(options =>
@@ -173,6 +185,7 @@
             services.AddTransient<IExperiencesService, ExperiencesService>();
             services.AddTransient<IContactsService, ContactsService>();
             services.AddTransient<IAccountsService, AccountsService>();
+            services.AddTransient<IReCaptchaService, ReCaptchaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

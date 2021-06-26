@@ -21,15 +21,18 @@
     public class AccountsController : BaseController
     {
         private readonly IAccountsService accountsService;
+        private readonly IReCaptchaService googleReCaptchaService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
 
         public AccountsController(
             IAccountsService accountsService,
+            IReCaptchaService googleReCaptchaService,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
             this.accountsService = accountsService;
+            this.googleReCaptchaService = googleReCaptchaService;
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
@@ -111,6 +114,13 @@
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromForm] UserRegisterRequestModel input)
         {
+            var recaptchaResult = await this.googleReCaptchaService.IsReCaptchaValid(input.Token);
+            var request = this.HttpContext.Request.Form;
+
+            if (!recaptchaResult)
+            {
+                return this.BadRequest("You failed the reCaptcha");
+            }
 
             if (input == null || !this.ModelState.IsValid)
             {

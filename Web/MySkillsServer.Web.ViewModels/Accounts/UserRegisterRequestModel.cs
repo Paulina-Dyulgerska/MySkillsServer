@@ -1,7 +1,9 @@
 ﻿namespace MySkillsServer.Web.ViewModels.Accounts
 {
     using System.ComponentModel.DataAnnotations;
+
     using AutoMapper;
+    using Microsoft.AspNetCore.Mvc;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Mapping;
 
@@ -19,6 +21,10 @@
         [Compare(nameof(Password))]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
+
+        // [ModelBinder(Name = "token")]
+        [BindProperty(Name = "token")]
+        public string Token { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

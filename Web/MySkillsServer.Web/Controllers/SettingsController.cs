@@ -9,7 +9,7 @@
     using MySkillsServer.Services.Data;
     using MySkillsServer.Web.ViewModels.Settings;
 
-    public class SettingsController : BaseController
+    public class SettingsController : Controller
     {
         private readonly ISettingsService settingsService;
 

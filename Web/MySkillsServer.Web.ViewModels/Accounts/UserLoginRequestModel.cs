@@ -4,6 +4,7 @@
 
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Mapping;
+    using MySkillsServer.Web.Infrastructure.ValidationAttributes;
 
     public class UserLoginRequestModel : IMapTo<ApplicationUser>
     {
@@ -14,5 +15,9 @@
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Required]
+        [GoogleReCaptchaValidationAttribute]
+        public string Token { get; set; }
     }
 }
