@@ -185,6 +185,7 @@
             services.AddTransient<IExperiencesService, ExperiencesService>();
             services.AddTransient<IContactsService, ContactsService>();
             services.AddTransient<IAccountsService, AccountsService>();
+            services.AddTransient<IContactFormMessagesService, ContactFormMessagesService>();
             services.AddTransient<IReCaptchaService, ReCaptchaService>();
         }
 
@@ -193,16 +194,16 @@
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
-            //// Seed data on application startup
-            //using (var serviceScope = app.ApplicationServices.CreateScope())
-            //{
-            //    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            //    dbContext.Database.Migrate();
-            //    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-            //}
-
             if (env.IsDevelopment())
             {
+                // Seed data on application startup
+                using (var serviceScope = app.ApplicationServices.CreateScope())
+                {
+                    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                    dbContext.Database.Migrate();
+                    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                }
+
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
             }

@@ -23,7 +23,7 @@
         public string ConfirmPassword { get; set; }
 
         // [ModelBinder(Name = "token")]
-        //[BindProperty(Name = "token")]
+        // [BindProperty(Name = "token")]
         public string Token { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

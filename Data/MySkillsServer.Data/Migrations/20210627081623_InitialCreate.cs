@@ -197,6 +197,32 @@ namespace MySkillsServer.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ContactFormMessages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContactFormMessages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ContactFormMessages_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Educations",
                 columns: table => new
                 {
@@ -303,6 +329,11 @@ namespace MySkillsServer.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ContactFormMessages_UserId",
+                table: "ContactFormMessages",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Educations_UserId",
                 table: "Educations",
                 column: "UserId");
@@ -334,6 +365,9 @@ namespace MySkillsServer.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "ContactFormMessages");
 
             migrationBuilder.DropTable(
                 name: "Contacts");
