@@ -62,10 +62,10 @@
 
             return new UserLoginResponseModel
             {
-                accessToken = tokenAsString,
-                expiresIn = (int)this.options.Value.Expiration.TotalMilliseconds,
-                roles = claims.Where(c => c.Type == ClaimTypes.Role).Select(r => r.Value),
-                userEmail = claims.Find(c => c.Type == ClaimTypes.Email).Value,
+                AccessToken = tokenAsString,
+                ExpiresIn = (int)this.options.Value.Expiration.TotalMilliseconds,
+                Roles = claims.Where(c => c.Type == ClaimTypes.Role).Select(r => r.Value),
+                UserEmail = claims.Find(c => c.Type == ClaimTypes.Name).Value,
             };
         }
 

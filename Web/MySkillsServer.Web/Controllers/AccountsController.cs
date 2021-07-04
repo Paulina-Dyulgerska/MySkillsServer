@@ -1,19 +1,17 @@
 ﻿namespace MySkillsServer.Web.Controllers
 {
-    using System;
     using System.Linq;
     using System.Security.Claims;
-    using System.Security.Principal;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using MySkillsServer.Common;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Data;
     using MySkillsServer.Services.Mapping;
+    using MySkillsServer.Web.Common;
     using MySkillsServer.Web.ViewModels.Accounts;
 
     [ApiController]
@@ -58,20 +56,26 @@
 
         //// JWT Authentication services 1
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserLoginRequestModel input)
+        public async Task<IActionResult> Login([FromForm] UserLoginRequestModel input)
         {
             var user = await this.userManager.FindByEmailAsync(input.Email);
 
             if (user == null || user.IsDeleted)
             {
-                return this.BadRequest(new { Message = "No such user" });
+                return this.BadRequest(new ErrorResponseModel
+                {
+                    Description = "No such user",
+                });
             }
 
             var validCredentials = await this.userManager.CheckPasswordAsync(user, input.Password);
 
             if (!validCredentials)
             {
-                return this.BadRequest(new { Message = "Email or password is incorrect" });
+                return this.BadRequest(new ErrorResponseModel
+                {
+                    Description = "Email or password is incorrect",
+                });
             }
 
             // sample code to run if user's credentials is valid and before login
@@ -91,7 +95,10 @@
 
             if (!result.Succeeded)
             {
-                return this.BadRequest(new { Message = "Invalid login attempt" });
+                return this.BadRequest(new ErrorResponseModel
+                {
+                    Description = "Invalid login attempt",
+                });
             }
 
             var response = await this.accountsService.Authenticate(user);
@@ -119,19 +126,28 @@
 
             if (!recaptchaResult)
             {
-                return this.BadRequest("You failed the reCaptcha");
+                return this.BadRequest(new ErrorResponseModel
+                {
+                    Description = "You failed the reCaptcha",
+                });
             }
 
             if (input == null || !this.ModelState.IsValid)
             {
-                return this.BadRequest(new { Message = "Invalid register attempt" });
+                return this.BadRequest(new ErrorResponseModel
+                {
+                    Description = "Invalid register attempt",
+                });
             }
 
             if (input.Password != input.ConfirmPassword
                 || string.IsNullOrWhiteSpace(input.Password)
                 || string.IsNullOrWhiteSpace(input.ConfirmPassword))
             {
-                return this.BadRequest(new { Message = "Passwords must match and should not be empty" });
+                return this.BadRequest(new ErrorResponseModel
+                {
+                    Description = "Passwords must match and should not be empty",
+                });
             }
 
             var user = input.To<ApplicationUser>();
@@ -142,12 +158,17 @@
 
             if (!result.Succeeded)
             {
-                foreach (var error in result.Errors)
-                {
-                    this.ModelState.AddModelError(string.Empty, error.Description);
-                }
-
-                return this.BadRequest(this.ModelState);
+                // foreach (var error in result.Errors)
+                // {
+                //     this.ModelState.AddModelError(string.Empty, error.Description);
+                // }
+                // return this.BadRequest(this.ModelState);
+                return this.BadRequest(result.Errors
+                                                .Select(e => new ErrorResponseModel
+                                                {
+                                                    Description = e.Description,
+                                                })
+                                                .FirstOrDefault());
             }
 
             await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);

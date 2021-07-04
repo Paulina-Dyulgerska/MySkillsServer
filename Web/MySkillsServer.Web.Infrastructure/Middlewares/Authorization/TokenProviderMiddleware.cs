@@ -15,6 +15,7 @@
     using Microsoft.Extensions.Options;
 
     using MySkillsServer.Common;
+    using MySkillsServer.Web.Common;
 
     //// JWT Authentication services 2
     public class TokenProviderMiddleware
@@ -69,7 +70,13 @@
             if (principal == null)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                await context.Response.WriteAsync("Invalid email or password.");
+
+                // this is in the body as text, not a json object
+                // await context.Response.WriteAsync("Invalid email or password.");
+                context.Response.ContentType = GlobalConstants.JsonContentType;
+                var error = new ErrorResponseModel { Description = "Invalid email or password." };
+                await context.Response.WriteAsync(JsonSerializer.Serialize(error));
+
                 return;
             }
 
@@ -109,12 +116,12 @@
 
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            var response = new
+            var response = new TokenProviderUserResponseModel
             {
-                accessToken = encodedJwt,
-                expiresIn = (int)this.options.Expiration.TotalMilliseconds,
-                roles = existingClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value),
-                userEmail = existingClaims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value,
+                AccessToken = encodedJwt,
+                ExpiresIn = (int)this.options.Expiration.TotalMilliseconds,
+                Roles = existingClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value),
+                UserEmail = existingClaims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value,
             };
 
             context.Response.ContentType = GlobalConstants.JsonContentType;
