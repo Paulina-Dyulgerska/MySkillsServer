@@ -30,7 +30,7 @@
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        //public async Task<ActionResult<IEnumerable<ContactExportModel>>> GetAll()
+        // public async Task<ActionResult<IEnumerable<ContactExportModel>>> GetAll()
         public async Task<IActionResult> GetAll()
         {
             var models = await this.contactsService.GetAllAsNoTrackingOrderedAsync<ContactExportModel>();

@@ -4,6 +4,7 @@
 
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Mapping;
+    using MySkillsServer.Web.Infrastructure.ValidationAttributes;
 
     public class ContactFormMessageCreateInputModel : IMapTo<ContactFormMessage>
     {
@@ -20,5 +21,9 @@
 
         [Required]
         public string Message { get; set; }
+
+        [Required]
+        [GoogleReCaptchaValidationAttribute]
+        public string Token { get; set; }
     }
 }

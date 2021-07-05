@@ -121,16 +121,16 @@
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromForm] UserRegisterRequestModel input)
         {
-            var recaptchaResult = await this.googleReCaptchaService.IsReCaptchaValid(input.Token);
+            // Not needed anymore since this logic is in a validation attribute GoogleReCaptchaValidationAttribute:
+            // var recaptchaResult = await this.googleReCaptchaService.IsReCaptchaValid(input.Token);
+            // if (!recaptchaResult)
+            // {
+            //     return this.BadRequest(new ErrorResponseModel
+            //     {
+            //         Description = "You failed the reCaptcha",
+            //     });
+            // }
             var request = this.HttpContext.Request.Form;
-
-            if (!recaptchaResult)
-            {
-                return this.BadRequest(new ErrorResponseModel
-                {
-                    Description = "You failed the reCaptcha",
-                });
-            }
 
             if (input == null || !this.ModelState.IsValid)
             {
