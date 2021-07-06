@@ -31,6 +31,8 @@
                               new EducationsSeeder(),
                               new ExperiencesSeeder(),
                               new ContactsSeeder(),
+                              new CategoriesSeeder(),
+                              new BlogPostsSeeder(),
                           };
 
             foreach (var seeder in seeders)

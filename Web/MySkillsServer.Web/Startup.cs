@@ -186,6 +186,8 @@
             services.AddTransient<IContactsService, ContactsService>();
             services.AddTransient<IAccountsService, AccountsService>();
             services.AddTransient<IContactFormMessagesService, ContactFormMessagesService>();
+            services.AddTransient<ICategoriesSeedService, CategoriesSeedService>();
+            services.AddTransient<IBlogPostSeedService, BlogPostSeedService>();
             services.AddTransient<IReCaptchaService, ReCaptchaService>();
         }
 
