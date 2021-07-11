@@ -1,11 +1,8 @@
 ﻿namespace MySkillsServer.Services.Data
 {
-    using System.Threading.Tasks;
-
     using MySkillsServer.Services.Data.Models;
 
-    public interface IContactsSeedService
+    public interface IContactsSeedService : ISeedService<ContactDTO>
     {
-        public Task CreateAsync(ContactDTO contactDTO);
     }
 }
