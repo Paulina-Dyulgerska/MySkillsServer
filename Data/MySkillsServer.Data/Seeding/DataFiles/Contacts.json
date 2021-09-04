@@ -3,24 +3,30 @@
     "Icon": "fas fa-phone-volume",
     "Title": "Call Me Now",
     "Link": "",
-    "LinkText": "+359887684868"
+    "LinkText": "+359 887 684868"
   },
   {
     "Icon": "fas fa-envelope-open-text",
     "Title": "Contact Me",
     "Link": "",
-    "LinkText": "paylina_st@yahoo.com && admin@api.dotnetweb.net"
+    "LinkText": "paulina.dyulgerska@gmail.com; admin@api.dotnetweb.net; admin@dotnetweb.net"
   },
   {
     "Icon": "fas fa-street-view",
     "Title": "Get Me Here",
     "Link": "",
-    "LinkText": "4003 - Plovdiv, Bulgaria"
+    "LinkText": "4003 - Plovdiv, Bulgaria && 1404 - Sofia, Bulgaria"
   },
   {
-    "Icon": "fas fa-headphones",
+    "Icon": "fas fa-eye",
     "Title": "Watch Me",
-    "Link": "",
-    "LinkText": "paulinaweb.com && myskills.dotnetweb.net"
+    "Link": "https://conformitycheck.dotnetweb.net",
+    "LinkText": "conformitycheck.dotnetweb.net"
+  },
+  {
+    "Icon": "fas fa-eye",
+    "Title": "Watch Me",
+    "Link": "https://myskills.dotnetweb.net",
+    "LinkText": "myskills.dotnetweb.net"
   }
 ]  
