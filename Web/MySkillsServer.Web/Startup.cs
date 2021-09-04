@@ -191,7 +191,6 @@
             services.AddTransient<ICategoriesSeedService, CategoriesSeedService>();
             services.AddTransient<IBlogPostSeedService, BlogPostSeedService>();
             services.AddTransient<IReCaptchaService, ReCaptchaService>();
-            services.AddApplicationInsightsTelemetry();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
