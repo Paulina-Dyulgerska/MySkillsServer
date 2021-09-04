@@ -8,14 +8,12 @@
     using System.Security.Claims;
     using System.Security.Principal;
     using System.Text.Json;
-    using System.Text.Json.Serialization;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Options;
 
     using MySkillsServer.Common;
-    using MySkillsServer.Web.Common;
 
     //// JWT Authentication services 2
     public class TokenProviderMiddleware

@@ -64,6 +64,7 @@
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
+        // TODO - not from Form but FromBody!!!!!
         public async Task<ActionResult> Post([FromForm] ContactFormMessageCreateInputModel input)
         {
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;

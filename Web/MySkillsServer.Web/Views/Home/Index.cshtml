@@ -1,6 +1,8 @@
 ﻿@using MySkillsServer.Common
 @inject Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> SignInManager
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> UserManager
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment environment
+@inject Microsoft.Extensions.Configuration.IConfiguration configuration
 
 @{
     this.ViewData["Title"] = "Home Page";
@@ -9,5 +11,12 @@
 <div class="text-center">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
     <p>@this.User.Identity.Name + Towa mi e usera</p>
+    <p>@Environment.OSVersion</p>
+    <p>@Environment.CurrentDirectory</p>
+    <p>@Environment.MachineName</p>
+    <p>@Environment.SystemDirectory</p>
+    <p>@Environment.WorkingSet</p>
+    <p>@environment.EnvironmentName</p>
+    <p>@configuration["ConnectionStrings:DefaultConnection"]</p>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

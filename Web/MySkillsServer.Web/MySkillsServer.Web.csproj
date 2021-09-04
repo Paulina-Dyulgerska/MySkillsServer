@@ -4,7 +4,6 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<UserSecretsId>aspnet-MySkillsServer-BBB373B5-EF3F-4DBB-B8AA-7152CEC275BF</UserSecretsId>
 		<LangVersion>latest</LangVersion>
-		<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
 	</PropertyGroup>
 
 	<PropertyGroup>

@@ -32,8 +32,10 @@
     using MySkillsServer.Services.Mapping;
     using MySkillsServer.Services.Messaging;
     using MySkillsServer.Web.Infrastructure.Middlewares.Authorization;
+    using MySkillsServer.Web.Infrastructure.ReCaptcha;
     using MySkillsServer.Web.Infrastructure.Settings;
     using MySkillsServer.Web.ViewModels;
+    //Talant v programiraneto nqma -wsichko e matematika, logika, mislene, strashno mnogo opit, strashno mnogo uprajeniq i reshawane na zadachi!
 
     public class Startup
     {
@@ -189,6 +191,7 @@
             services.AddTransient<ICategoriesSeedService, CategoriesSeedService>();
             services.AddTransient<IBlogPostSeedService, BlogPostSeedService>();
             services.AddTransient<IReCaptchaService, ReCaptchaService>();
+            services.AddApplicationInsightsTelemetry();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -196,16 +199,15 @@
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
+            //Seed data on application startup
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                dbContext.Database.Migrate();
+                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            }
             if (env.IsDevelopment())
             {
-                // Seed data on application startup
-                using (var serviceScope = app.ApplicationServices.CreateScope())
-                {
-                    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                    dbContext.Database.Migrate();
-                    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                }
-
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
             }
@@ -234,13 +236,13 @@
             app.UseEndpoints(
                 endpoints =>
                     {
-                        // without views and default loading page:
-                        endpoints.MapControllers();
+                        //// without views and default loading page:
+                        //endpoints.MapControllers();
 
-                        //// with view and default loading page:
-                        // endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                        // endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-                        // endpoints.MapRazorPages();
+                        // with view and default loading page:
+                        endpoints.MapControllerRoute("arearoute", "{area:exists}/{controller=home}/{action=index}/{id?}");
+                        endpoints.MapControllerRoute("default", "{controller=home}/{action=index}/{id?}");
+                        endpoints.MapRazorPages();
                     });
         }
 

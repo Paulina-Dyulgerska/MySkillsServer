@@ -2,6 +2,8 @@
 {
     public class JwtSettings
     {
+        public const string Jwt = "JwtSettings";
+
         public string Secret { get; set; }
 
         public string Issuer { get; set; }
