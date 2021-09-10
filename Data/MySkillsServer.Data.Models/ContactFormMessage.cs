@@ -1,5 +1,7 @@
 ﻿namespace MySkillsServer.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     using MySkillsServer.Data.Common.Models;
 
     public class ContactFormMessage : BaseModel<int>
@@ -14,6 +16,9 @@
 
         public string Message { get; set; }
 
-        public ApplicationUser User { get; set; }
+        [Required]
+        public string UserId { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
     }
 }

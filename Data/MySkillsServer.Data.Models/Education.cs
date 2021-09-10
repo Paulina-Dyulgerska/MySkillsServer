@@ -1,8 +1,10 @@
 ﻿namespace MySkillsServer.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     using MySkillsServer.Data.Common.Models;
 
-    public class Education : BaseModel<int>
+    public class Education : BaseDeletableModel<int>
     {
         public string Degree { get; set; }
 
@@ -18,6 +20,7 @@
 
         public string Details { get; set; }
 
+        [Required]
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }

@@ -70,7 +70,7 @@
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var user = await this.userManager.GetUserAsync(this.User);
 
-            var inputId = await this.contactFormMessagesService.CreateAsync(input, user);
+            var inputId = await this.contactFormMessagesService.CreateAsync(input, user.Id);
             var model = await this.contactFormMessagesService.GetByIdAsync<ContactFormMessageExportModel>(inputId);
 
             return this.CreatedAtAction(nameof(this.GetById), new { id = model.Id }, model);
@@ -101,8 +101,7 @@
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var user = await this.userManager.GetUserAsync(this.User);
 
-            // await this.contactFormMessagesService.EditAsync(input);
-            await this.contactFormMessagesService.EditAsync(input, user);
+            await this.contactFormMessagesService.EditAsync(input, user.Id);
 
             return this.NoContent();
         }

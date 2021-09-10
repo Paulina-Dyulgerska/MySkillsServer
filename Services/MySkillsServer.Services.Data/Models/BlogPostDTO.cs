@@ -12,6 +12,8 @@
 
         public string ImageRemoteFileUrl { get; set; }
 
+        public string ImageFileName { get; set; }
+
         public string ImageFileExtension { get; set; }
 
         public string ExternalPostUrl { get; set; }

@@ -1,30 +1,15 @@
 ﻿namespace MySkillsServer.Services.Data
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using MySkillsServer.Data.Models;
     using MySkillsServer.Web.ViewModels.Educations;
 
-    public interface IEducationsService
+    public interface IEducationsService : IService<int>
     {
-        int GetCount();
+        Task<int> CreateAsync(EducationCreateInputModel input, string userId);
 
-        Task<IEnumerable<T>> GetAllAsync<T>();
+        Task<int> EditAsync(EducationEditInputModel input, string userId);
 
-        Task<IEnumerable<T>> GetAllAsNoTrackingAsync<T>();
-
-        Task<IEnumerable<T>> GetAllAsNoTrackingOrderedAsync<T>();
-
-        Task<IEnumerable<T>> GetOrderedAsPagesAsync<T>(string sortOrder, int page, int itemsPerPage);
-
-        Task<T> GetByIdAsync<T>(int id);
-
-        // Task CreateAsync(EducationCreateInputModel input, string userId);
-        Task<int> CreateAsync(EducationCreateInputModel input);
-
-        Task<int> EditAsync(EducationEditInputModel input);
-
-        Task<int> DeleteAsync(int id);
+        Task<int> DeleteAsync(int id, string userId);
     }
 }

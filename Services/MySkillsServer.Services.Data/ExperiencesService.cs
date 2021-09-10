@@ -2,9 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -46,7 +44,7 @@
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> GetOrderedAsPagesAsync<T>(string sortOrder, int page, int itemsPerPage)
+        public async Task<IEnumerable<T>> GetAllOrderedAsPagesAsync<T>(string sortOrder, int page, int itemsPerPage)
         {
             return await this.experiencesRepository
                                 .AllAsNoTracking()
@@ -65,15 +63,14 @@
                 .FirstOrDefaultAsync();
         }
 
-        // public async Task CreateAsync(EducationCreateInputModel input, string userId)
-        public async Task<int> CreateAsync(ExperienceCreateInputModel input)
+        public async Task<int> CreateAsync(ExperienceCreateInputModel input, string userId)
         {
             // var userEntity = this.usersRepository.AllAsNoTracking()
             //   .FirstOrDefault(x => x.UserName == articleInputModel.UserId);
             //// take the user and record its id in the article, product, conformity, etc.
             var entity = new Experience();
 
-            this.InstanceBuilder(input, entity);
+            this.InstanceBuilder(input, entity, userId);
 
             await this.experiencesRepository.AddAsync(entity);
 
@@ -82,32 +79,30 @@
             return entity.Id;
         }
 
-        // public async Task EditAsync(EducationEditInputModel input, string userId)
-        public async Task<int> EditAsync(ExperienceEditInputModel input)
+        public async Task<int> EditAsync(ExperienceEditInputModel input, string userId)
         {
             var entity = await this.experiencesRepository
                 .All()
                 .FirstOrDefaultAsync(x => x.Id == input.Id);
 
-            // var userEntity = this.usersRepository.AllAsNoTracking()
-            //    .FirstOrDefault(x => x.UserName == articleInputModel.UserId);
-            // take the user and record its id in the article, product, conformity, etc.\\
-            this.InstanceBuilder(input, entity);
+            this.InstanceBuilder(input, entity, userId);
 
             await this.experiencesRepository.SaveChangesAsync();
 
             return entity.Id;
         }
 
-        public async Task<int> DeleteAsync(int id)
+        public async Task<int> DeleteAsync(int id, string userId)
         {
             var entity = await this.experiencesRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            entity.UserId = userId;
+
             this.experiencesRepository.Delete(entity);
 
             return await this.experiencesRepository.SaveChangesAsync();
         }
 
-        private void InstanceBuilder(ExperienceCreateInputModel input, Experience entity)
+        private void InstanceBuilder(ExperienceCreateInputModel input, Experience entity, string userId)
         {
             entity.Url = input.Url.Trim();
             entity.Logo = input.Logo.Trim();
@@ -116,6 +111,7 @@
             entity.StartDate = input.StartDate.ToUniversalTime();
             entity.IconClassName = input.IconClassName.Trim();
             entity.Details = input.Details.Trim();
+            entity.UserId = userId;
 
             this.EndDateParser(input, entity);
         }
@@ -130,26 +126,6 @@
             {
                 entity.EndDate = DateTime.UtcNow;
             }
-        }
-
-        private string PascalCaseConverterWords(string stringToFix)
-        {
-            var st = new StringBuilder();
-            var wordsInStringToFix = stringToFix.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var word in wordsInStringToFix)
-            {
-                st.Append(char.ToUpper(word[0]));
-
-                for (int i = 1; i < word.Length; i++)
-                {
-                    st.Append(char.ToLower(word[i]));
-                }
-
-                st.Append(' ');
-            }
-
-            return st.ToString().Trim();
         }
     }
 }

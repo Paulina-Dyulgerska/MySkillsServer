@@ -29,7 +29,5 @@
         public string IconClassName { get; set; }
 
         public string Details { get; set; }
-
-        public string UserId { get; set; }
     }
 }

@@ -8,6 +8,8 @@
     using System.Security.Principal;
     using System.Text;
     using System.Threading.Tasks;
+
+    using Azure.Storage.Blobs;
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
@@ -35,7 +37,7 @@
     using MySkillsServer.Web.Infrastructure.ReCaptcha;
     using MySkillsServer.Web.Infrastructure.Settings;
     using MySkillsServer.Web.ViewModels;
-    //Talant v programiraneto nqma -wsichko e matematika, logika, mislene, strashno mnogo opit, strashno mnogo uprajeniq i reshawane na zadachi!
+    // Talant v programiraneto nqma - wsichko e matematika, logika, mislene, strashno mnogo opit, strashno mnogo uprajeniq i reshawane na zadachi!
 
     public class Startup
     {
@@ -135,7 +137,7 @@
                     .AddRoles<ApplicationRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            //services.Configure<CookiePolicyOptions>(
+            // services.Configure<CookiePolicyOptions>(
             //    options =>
             //        {
             //            options.CheckConsentNeeded = context => true;
@@ -171,6 +173,7 @@
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(this.configuration);
+            services.AddSingleton(new BlobServiceClient(this.configuration.GetConnectionString("BlobConnection")));
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
@@ -181,15 +184,17 @@
             services.AddTransient<IEducationsSeedService, EducationsSeedService>();
             services.AddTransient<IExperiencesSeedService, ExperiencesSeedService>();
             services.AddTransient<IContactsSeedService, ContactsSeedService>();
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<ICategoriesSeedService, CategoriesSeedService>();
+            services.AddTransient<IBlogPostSeedService, BlogPostSeedService>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IEducationsService, EducationsService>();
             services.AddTransient<IExperiencesService, ExperiencesService>();
             services.AddTransient<IContactsService, ContactsService>();
             services.AddTransient<IAccountsService, AccountsService>();
             services.AddTransient<IContactFormMessagesService, ContactFormMessagesService>();
-            services.AddTransient<ICategoriesSeedService, CategoriesSeedService>();
-            services.AddTransient<IBlogPostSeedService, BlogPostSeedService>();
+            services.AddTransient<IBlogPostService, BlogPostsService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IReCaptchaService, ReCaptchaService>();
         }
 
@@ -198,13 +203,14 @@
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
-            //Seed data on application startup
+            // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

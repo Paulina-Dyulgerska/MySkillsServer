@@ -43,6 +43,7 @@
                 Title = blogPostDTO.Title,
                 Details = blogPostDTO.Details,
                 ImageRemoteFileUrl = blogPostDTO.ImageRemoteFileUrl,
+                ImageFileName = blogPostDTO.ImageFileName,
                 ImageFileExtension = blogPostDTO.ImageFileExtension,
                 ExternalPostUrl = blogPostDTO.ExternalPostUrl,
                 Likes = blogPostDTO.Likes,
@@ -51,8 +52,7 @@
             };
 
             await this.blogPostsRepository.AddAsync(blogPost);
-            blogPost.ImageRemoteFileUrl = blogPost.Id;
-
+            // blogPost.ImageRemoteFileUrl = blogPost.Id;
             await this.blogPostsRepository.SaveChangesAsync();
         }
     }

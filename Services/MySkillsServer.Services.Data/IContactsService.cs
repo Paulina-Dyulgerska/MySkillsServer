@@ -1,29 +1,15 @@
 ﻿namespace MySkillsServer.Services.Data
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using MySkillsServer.Web.ViewModels.Contacts;
 
-    public interface IContactsService
+    public interface IContactsService : IService<int>
     {
-        int GetCount();
+        Task<int> CreateAsync(ContactCreateInputModel input, string userId);
 
-        Task<IEnumerable<T>> GetAllAsync<T>();
+        Task<int> EditAsync(ContactEditInputModel input, string userId);
 
-        Task<IEnumerable<T>> GetAllAsNoTrackingAsync<T>();
-
-        Task<IEnumerable<T>> GetAllAsNoTrackingOrderedAsync<T>();
-
-        Task<IEnumerable<T>> GetOrderedAsPagesAsync<T>(string sortOrder, int page, int itemsPerPage);
-
-        Task<T> GetByIdAsync<T>(int id);
-
-        // Task CreateAsync(ContactCreateInputModel input, string userId);
-        Task<int> CreateAsync(ContactCreateInputModel input);
-
-        Task<int> EditAsync(ContactEditInputModel input);
-
-        Task<int> DeleteAsync(int id);
+        Task<int> DeleteAsync(int id, string userId);
     }
 }

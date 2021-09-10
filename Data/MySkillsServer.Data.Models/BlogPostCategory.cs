@@ -1,7 +1,8 @@
 ﻿namespace MySkillsServer.Data.Models
 {
-    using MySkillsServer.Data.Common.Models;
     using System.ComponentModel.DataAnnotations.Schema;
+
+    using MySkillsServer.Data.Common.Models;
 
     public class BlogPostCategory : BaseModel<int>
     {
@@ -11,7 +12,7 @@
         public BlogPost BlogPost { get; set; }
 
         [ForeignKey(nameof(Category))]
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         public Category Category { get; set; }
     }

@@ -1,9 +1,7 @@
 ﻿namespace MySkillsServer.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -46,7 +44,7 @@
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> GetOrderedAsPagesAsync<T>(string sortOrder, int page, int itemsPerPage)
+        public async Task<IEnumerable<T>> GetAllOrderedAsPagesAsync<T>(string sortOrder, int page, int itemsPerPage)
         {
             return await this.educationsRepository
                                 .AllAsNoTracking()
@@ -65,8 +63,7 @@
                 .FirstOrDefaultAsync();
         }
 
-        // public async Task CreateAsync(EducationCreateInputModel input, string userId)
-        public async Task<int> CreateAsync(EducationCreateInputModel input)
+        public async Task<int> CreateAsync(EducationCreateInputModel input, string userId)
         {
             // var userEntity = this.usersRepository.AllAsNoTracking()
             //   .FirstOrDefault(x => x.UserName == articleInputModel.UserId);
@@ -80,6 +77,7 @@
                 EndYear = input.EndYear,
                 IconClassName = input.IconClassName.Trim(),
                 Details = input.Details.Trim(),
+                UserId = userId,
             };
 
             await this.educationsRepository.AddAsync(entity);
@@ -89,8 +87,7 @@
             return entity.Id;
         }
 
-        // public async Task EditAsync(EducationEditInputModel input, string userId)
-        public async Task<int> EditAsync(EducationEditInputModel input)
+        public async Task<int> EditAsync(EducationEditInputModel input, string userId)
         {
             var entity = await this.educationsRepository
                 .All()
@@ -106,38 +103,21 @@
             entity.EndYear = input.EndYear;
             entity.IconClassName = input.IconClassName.Trim();
             entity.Details = input.Details.Trim();
+            entity.UserId = userId;
 
             await this.educationsRepository.SaveChangesAsync();
 
             return entity.Id;
         }
 
-        public async Task<int> DeleteAsync(int id)
+        public async Task<int> DeleteAsync(int id, string userId)
         {
             var entity = await this.educationsRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            entity.UserId = userId;
+
             this.educationsRepository.Delete(entity);
 
             return await this.educationsRepository.SaveChangesAsync();
-        }
-
-        private string PascalCaseConverterWords(string stringToFix)
-        {
-            var st = new StringBuilder();
-            var wordsInStringToFix = stringToFix.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var word in wordsInStringToFix)
-            {
-                st.Append(char.ToUpper(word[0]));
-
-                for (int i = 1; i < word.Length; i++)
-                {
-                    st.Append(char.ToLower(word[i]));
-                }
-
-                st.Append(' ');
-            }
-
-            return st.ToString().Trim();
         }
     }
 }

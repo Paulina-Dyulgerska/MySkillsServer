@@ -1,6 +1,5 @@
 ﻿namespace MySkillsServer.Web.Controllers
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -11,9 +10,9 @@
     using MySkillsServer.Services.Data;
     using MySkillsServer.Web.ViewModels.Educations;
 
+    // [Authorize(AuthenticationSchemes = "Bearer")]
     // REST /api/educations
     [Route("api/[controller]")]
-    //[Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
     public class EducationsController : ControllerBase
     {
@@ -72,10 +71,9 @@
         public async Task<ActionResult> Post(EducationCreateInputModel input)
         {
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            // var user = await this.userManager.GetUserAsync(this.User);
+            var user = await this.userManager.GetUserAsync(this.User);
 
-            // await this.educationsService.CreateAsync(input, user.Id);
-            var inputId = await this.educationsService.CreateAsync(input);
+            var inputId = await this.educationsService.CreateAsync(input, user.Id);
             var model = await this.educationsService.GetByIdAsync<EducationExportModel>(inputId);
 
             return this.CreatedAtAction(nameof(this.GetById), new { id = model.Id }, model);
@@ -102,10 +100,9 @@
             }
 
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            // var user = await this.userManager.GetUserAsync(this.User);
+            var user = await this.userManager.GetUserAsync(this.User);
 
-            // await this.educationsService.EditAsync(input, user.Id);
-            await this.educationsService.EditAsync(input);
+            await this.educationsService.EditAsync(input, user.Id);
 
             return this.NoContent();
         }
@@ -124,7 +121,9 @@
                 return this.NotFound();
             }
 
-            await this.educationsService.DeleteAsync(id);
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            await this.educationsService.DeleteAsync(id, user.Id);
 
             return this.Ok();
         }

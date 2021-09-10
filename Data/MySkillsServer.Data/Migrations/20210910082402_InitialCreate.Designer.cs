@@ -10,7 +10,7 @@ using MySkillsServer.Data;
 namespace MySkillsServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210706211700_InitialCreate")]
+    [Migration("20210910082402_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -270,6 +270,9 @@ namespace MySkillsServer.Data.Migrations
                     b.Property<string>("ImageFileExtension")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageFileName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ImageRemoteFileUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -312,8 +315,8 @@ namespace MySkillsServer.Data.Migrations
                     b.Property<string>("BlogPostId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CategoryId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -332,8 +335,10 @@ namespace MySkillsServer.Data.Migrations
 
             modelBuilder.Entity("MySkillsServer.Data.Models.Category", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -351,9 +356,15 @@ namespace MySkillsServer.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Categories");
                 });
@@ -382,8 +393,8 @@ namespace MySkillsServer.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PublishDate")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("PublishDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -408,8 +419,14 @@ namespace MySkillsServer.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Icon")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Link")
                         .HasColumnType("nvarchar(max)");
@@ -423,7 +440,15 @@ namespace MySkillsServer.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Contacts");
                 });
@@ -457,6 +482,7 @@ namespace MySkillsServer.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -479,6 +505,9 @@ namespace MySkillsServer.Data.Migrations
                     b.Property<string>("Degree")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
@@ -491,6 +520,9 @@ namespace MySkillsServer.Data.Migrations
                     b.Property<string>("Institution")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
@@ -501,9 +533,12 @@ namespace MySkillsServer.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("UserId");
 
@@ -523,6 +558,9 @@ namespace MySkillsServer.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
@@ -531,6 +569,9 @@ namespace MySkillsServer.Data.Migrations
 
                     b.Property<string>("IconClassName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Job")
                         .HasColumnType("nvarchar(max)");
@@ -548,9 +589,12 @@ namespace MySkillsServer.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("UserId");
 
@@ -659,11 +703,24 @@ namespace MySkillsServer.Data.Migrations
 
                     b.HasOne("MySkillsServer.Data.Models.Category", "Category")
                         .WithMany("BlogPosts")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("BlogPost");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("MySkillsServer.Data.Models.Category", b =>
+                {
+                    b.HasOne("MySkillsServer.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MySkillsServer.Data.Models.Comment", b =>
@@ -685,11 +742,24 @@ namespace MySkillsServer.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("MySkillsServer.Data.Models.Contact", b =>
+                {
+                    b.HasOne("MySkillsServer.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MySkillsServer.Data.Models.ContactFormMessage", b =>
                 {
                     b.HasOne("MySkillsServer.Data.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -698,7 +768,9 @@ namespace MySkillsServer.Data.Migrations
                 {
                     b.HasOne("MySkillsServer.Data.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -707,7 +779,9 @@ namespace MySkillsServer.Data.Migrations
                 {
                     b.HasOne("MySkillsServer.Data.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

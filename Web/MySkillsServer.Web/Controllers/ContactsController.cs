@@ -1,8 +1,5 @@
 ﻿namespace MySkillsServer.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -68,10 +65,10 @@
         public async Task<ActionResult> Post(ContactCreateInputModel input)
         {
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            // var user = await this.userManager.GetUserAsync(this.User);
+            var user = await this.userManager.GetUserAsync(this.User);
 
-            // await this.contactsService.CreateAsync(input, user.Id);
-            var inputId = await this.contactsService.CreateAsync(input);
+            var inputId = await this.contactsService.CreateAsync(input, user.Id);
+
             var model = await this.contactsService.GetByIdAsync<ContactExportModel>(inputId);
 
             return this.CreatedAtAction(nameof(this.GetById), new { id = model.Id }, model);
@@ -99,10 +96,9 @@
             }
 
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            // var user = await this.userManager.GetUserAsync(this.User);
+            var user = await this.userManager.GetUserAsync(this.User);
 
-            // await this.contactsService.EditAsync(input, user.Id);
-            await this.contactsService.EditAsync(input);
+            await this.contactsService.EditAsync(input, user.Id);
 
             return this.NoContent();
         }
@@ -122,7 +118,8 @@
                 return this.NotFound();
             }
 
-            await this.contactsService.DeleteAsync(id);
+            var user = await this.userManager.GetUserAsync(this.User);
+            await this.contactsService.DeleteAsync(id, user.Id);
 
             return this.Ok();
         }

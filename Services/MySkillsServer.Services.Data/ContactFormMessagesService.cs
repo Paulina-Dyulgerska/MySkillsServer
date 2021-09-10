@@ -1,9 +1,7 @@
 ﻿namespace MySkillsServer.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -45,7 +43,7 @@
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> GetOrderedAsPagesAsync<T>(string sortOrder, int page, int itemsPerPage)
+        public async Task<IEnumerable<T>> GetAllOrderedAsPagesAsync<T>(string sortOrder, int page, int itemsPerPage)
         {
             return await this.contactFormMessagesRepository
                                 .AllAsNoTracking()
@@ -64,11 +62,10 @@
                 .FirstOrDefaultAsync();
         }
 
-        //public async Task<int> CreateAsync(ContactFormMessageCreateInputModel input)
-        public async Task<int> CreateAsync(ContactFormMessageCreateInputModel input, ApplicationUser user)
+        public async Task<int> CreateAsync(ContactFormMessageCreateInputModel input, string userId)
         {
             var entity = input.To<ContactFormMessage>();
-            entity.User = user;
+            entity.UserId = userId;
 
             await this.contactFormMessagesRepository.AddAsync(entity);
 
@@ -77,14 +74,13 @@
             return entity.Id;
         }
 
-        // public async Task EditAsync(EducationEditInputModel input)
-        public async Task<int> EditAsync(ContactFormMessageEditInputModel input, ApplicationUser user)
+        public async Task<int> EditAsync(ContactFormMessageEditInputModel input, string userId)
         {
             var entity = await this.contactFormMessagesRepository
                 .All()
                 .FirstOrDefaultAsync(x => x.Id == input.Id);
 
-            if (entity.User == user)
+            if (entity.UserId == userId)
             {
                 entity.Name = input.Name.Trim();
                 entity.Phone = input.Phone.Trim();
@@ -103,26 +99,6 @@
             this.contactFormMessagesRepository.Delete(entity);
 
             return await this.contactFormMessagesRepository.SaveChangesAsync();
-        }
-
-        private string PascalCaseConverterWords(string stringToFix)
-        {
-            var st = new StringBuilder();
-            var wordsInStringToFix = stringToFix.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var word in wordsInStringToFix)
-            {
-                st.Append(char.ToUpper(word[0]));
-
-                for (int i = 1; i < word.Length; i++)
-                {
-                    st.Append(char.ToLower(word[i]));
-                }
-
-                st.Append(' ');
-            }
-
-            return st.ToString().Trim();
         }
     }
 }

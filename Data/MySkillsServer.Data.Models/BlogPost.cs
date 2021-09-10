@@ -29,7 +29,8 @@
         // is stoored on another external storage system, I will use the FileUrl as an locator.
         public string ImageRemoteFileUrl { get; set; }
 
-        // the file name is this.Id!
+        public string ImageFileName { get; set; }
+
         public string ImageFileExtension { get; set; }
 
         public string ExternalPostUrl { get; set; }

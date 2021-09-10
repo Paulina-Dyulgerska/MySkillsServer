@@ -6,16 +6,20 @@
 
     using MySkillsServer.Data.Common.Models;
 
-    public class Category : BaseDeletableModel<string>
+    public class Category : BaseDeletableModel<int>
     {
         public Category()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.BlogPosts = new HashSet<BlogPostCategory>();
         }
 
         [Required]
         public string Name { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
 
         public virtual ICollection<BlogPostCategory> BlogPosts { get; set; }
     }

@@ -1,10 +1,11 @@
 ﻿namespace MySkillsServer.Data.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     using MySkillsServer.Data.Common.Models;
 
-    public class Experience : BaseModel<int>
+    public class Experience : BaseDeletableModel<int>
     {
         public string Url { get; set; }
 
@@ -22,6 +23,7 @@
 
         public string Details { get; set; }
 
+        [Required]
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
