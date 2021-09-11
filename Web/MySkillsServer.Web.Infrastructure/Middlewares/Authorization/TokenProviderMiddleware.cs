@@ -118,7 +118,7 @@
             {
                 AccessToken = encodedJwt,
                 ExpiresIn = (int)this.options.Expiration.TotalMilliseconds,
-                Roles = existingClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value),
+                UserRoles = existingClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value),
                 UserEmail = existingClaims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value,
             };
 

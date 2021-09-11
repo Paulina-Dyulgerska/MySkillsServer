@@ -18,7 +18,7 @@
         [JsonPropertyName("expiresIn")]
         public int ExpiresIn { get; set; }
 
-        [JsonPropertyName("roles")]
-        public IEnumerable<string> Roles { get; set; }
+        [JsonPropertyName("userRoles")]
+        public IEnumerable<string> UserRoles { get; set; }
     }
 }
