@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
 
     public static class Program
     {
@@ -15,6 +16,11 @@
                 .ConfigureWebHostDefaults(webBuilder =>
                     {
                         webBuilder.UseStartup<Startup>();
-                    });
+                    })
+                .ConfigureLogging(loggingOptions =>
+                {
+                    // loggingOptions.ClearProviders();
+                    loggingOptions.SetMinimumLevel(LogLevel.Warning);
+                });
     }
 }

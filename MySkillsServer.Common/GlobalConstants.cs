@@ -3,6 +3,7 @@
     public static class GlobalConstants
     {
         public const string SystemName = "MySkillsServer";
+        public const string SystemEmail = "admin@dotnetweb.net";
 
         public const string AdministratorRoleName = "Administrator";
         public const string UserRoleName = "User";

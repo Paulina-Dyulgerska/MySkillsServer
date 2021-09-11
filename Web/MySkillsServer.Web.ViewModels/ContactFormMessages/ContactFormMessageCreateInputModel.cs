@@ -22,6 +22,8 @@
         [Required]
         public string Message { get; set; }
 
+        public string Ip { get; set; }
+
         [Required]
         [GoogleReCaptchaValidationAttribute]
         public string Token { get; set; }

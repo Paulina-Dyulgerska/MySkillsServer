@@ -1,7 +1,6 @@
 ﻿namespace MySkillsServer.Web
 {
     using System;
-    using System.Collections;
     using System.Linq;
     using System.Reflection;
     using System.Security.Claims;
@@ -10,20 +9,18 @@
     using System.Threading.Tasks;
 
     using Azure.Storage.Blobs;
-    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
-    using MySkillsServer.Common;
     using MySkillsServer.Data;
     using MySkillsServer.Data.Common;
     using MySkillsServer.Data.Common.Repositories;
@@ -34,11 +31,10 @@
     using MySkillsServer.Services.Mapping;
     using MySkillsServer.Services.Messaging;
     using MySkillsServer.Web.Infrastructure.Middlewares.Authorization;
-    using MySkillsServer.Web.Infrastructure.ReCaptcha;
     using MySkillsServer.Web.Infrastructure.Settings;
     using MySkillsServer.Web.ViewModels;
-    // Talant v programiraneto nqma - wsichko e matematika, logika, mislene, strashno mnogo opit, strashno mnogo uprajeniq i reshawane na zadachi!
 
+    // Talant v programiraneto nqma - wsichko e matematika, logika, mislene, strashno mnogo opit, strashno mnogo uprajeniq i reshawane na zadachi!
     public class Startup
     {
         private readonly IConfiguration configuration;
@@ -83,6 +79,10 @@
 
             var googleReCaptchaSettingsSection = this.configuration.GetSection("GoogleReCaptchaV3Settings");
             services.Configure<ReCaptchaSettings>(googleReCaptchaSettingsSection);
+
+            var emailSettingsSection = this.configuration.GetSection(EmailSettings.EmailSetting);
+            services.Configure<EmailSettings>(emailSettingsSection);
+            var emailSettings = emailSettingsSection.Get<EmailSettings>();
 
             // Configure JWT authentication services
             var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
@@ -143,21 +143,23 @@
             //            options.CheckConsentNeeded = context => true;
             //            options.MinimumSameSitePolicy = SameSiteMode.None;
             //        });
-
             services.AddCors(options =>
             {
                 options.AddPolicy(
                                     name: this.allowSpecificOrigins,
                                     builder => builder
+
                                             // for a list with URLs:
                                             .WithOrigins(origins: this.allowedDomains)
+
                                             // for a specific URL:
                                             // .SetIsOriginAllowed((host) => { return host == this.corsAllowedUrl1; })
                                             // for all subdomeins:
                                             // .SetIsOriginAllowedToAllowWildcardSubdomains()
                                             // .WithOrigins("https://*.dotnetweb.net")
                                             .AllowAnyMethod()
-                                            //.AllowCredentials() // to be able to send cookies to FE
+
+                                            // .AllowCredentials() // to be able to send cookies to FE
                                             .AllowAnyHeader());
             });
 
@@ -194,8 +196,12 @@
             services.AddTransient<IContactFormMessagesService, ContactFormMessagesService>();
             services.AddTransient<IBlogPostService, BlogPostsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
-            services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IReCaptchaService, ReCaptchaService>();
+
+            // services.AddTransient<IEmailSender, NullMessageSender>();
+            // services.AddTransient<IEmailSender>(serviceProvider => new SendGridEmailSender(this.configuration["EmailSettings:ApiKey"]));
+            services.AddTransient<IEmailSender>(serviceProvider =>
+                        new SendGridEmailSender(emailSettings.ApiKey, serviceProvider.GetRequiredService<ILogger<SendGridEmailSender>>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -242,7 +248,7 @@
                 endpoints =>
                     {
                         //// without views and default loading page:
-                        //endpoints.MapControllers();
+                        // endpoints.MapControllers();
 
                         // with view and default loading page:
                         endpoints.MapControllerRoute("arearoute", "{area:exists}/{controller=home}/{action=index}/{id?}");
