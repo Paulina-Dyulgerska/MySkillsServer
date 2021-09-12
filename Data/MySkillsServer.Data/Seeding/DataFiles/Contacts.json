@@ -13,19 +13,19 @@
   },
   {
     "Icon": "fas fa-street-view",
-    "Title": "Get Me Here",
+    "Title": "I Am Here",
     "Link": "",
-    "LinkText": "4003 - Plovdiv, Bulgaria && 1404 - Sofia, Bulgaria"
+    "LinkText": "4003 - Plovdiv && 1404 - Sofia, Bulgaria"
   },
   {
     "Icon": "fas fa-eye",
-    "Title": "Watch Me",
+    "Title": "My Work",
     "Link": "https://conformitycheck.dotnetweb.net",
     "LinkText": "conformitycheck.dotnetweb.net"
   },
   {
     "Icon": "fas fa-eye",
-    "Title": "Watch Me",
+    "Title": "My Work",
     "Link": "https://myskills.dotnetweb.net",
     "LinkText": "myskills.dotnetweb.net"
   }

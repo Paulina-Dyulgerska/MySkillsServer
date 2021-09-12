@@ -6,7 +6,7 @@
     "StartYear": "2019",
     "EndYear": "2021",
     "IconClassName": "fas fa-laptop",
-    "Details": "C# Programming Basic, C# Fundamentals, C# Advanced, C# OOP, JS Advanced, JS Applications, Databases Basics - MS SQL Server, Entity Framework Core, C# Web Basics, HTML & CSS, ASP.NET Core, React"
+    "Details": "C# Programming Basic; C# Fundamentals; C# Advanced; C# OOP; JS Advanced; JS Applications; Databases Basics - MS SQL Server; Entity Framework Core; C# Web Basics; HTML & CSS; ASP.NET Core; React"
   },
   {
     "Degree": "Master degree: MAcc",
@@ -15,7 +15,7 @@
     "StartYear": "2005",
     "EndYear": "2007",
     "IconClassName": "fas fa-chart-line",
-    "Details": "Accounting, Corporate Analysis, Industrial Management, Macroeconomics, Microeconomics, Marketing, Statistics, Finance, Labor Economics, Taxes and Tax Policy"
+    "Details": "Accounting; Corporate Analysis; Industrial Management; Macroeconomics; Microeconomics; Marketing; Statistics; Finance; Labor Economics; Taxes and Tax Policy"
   },
   {
     "Degree": "Master degree: MEng",
@@ -24,7 +24,7 @@
     "StartYear": "1997",
     "EndYear": "2003",
     "IconClassName": "fas fa-tools",
-    "Details": "Production Automation, Systems for Аutomation, Informatics, Mathematics, Physics and Chemistry, Technical Documentation, Technical Mechanics, Materials, Theoretical Electrotechnics, Electrical and Not-electrical Values Measurements, Electro-mechanical Systems, Semiconductor Elements, Computer Simulations"
+    "Details": "Production Automation; Systems for Аutomation; Informatics; Mathematics; Physics and Chemistry; Technical Documentation; Technical Mechanics; Materials; Theoretical Electrotechnics; Electrical and Not-electrical Values Measurements; Electro-mechanical Systems; Semiconductor Elements; Computer Simulations"
   },
   {
     "Degree": "High School",
@@ -33,6 +33,6 @@
     "StartYear": "1991",
     "EndYear": "1996",
     "IconClassName": "fas fa-square-root-alt",
-    "Details": "Mathematics, English"
+    "Details": "Mathematics; English"
   }
 ]
