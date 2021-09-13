@@ -197,6 +197,7 @@
             services.AddTransient<IBlogPostService, BlogPostsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IReCaptchaService, ReCaptchaService>();
+            services.AddTransient<IFileDeliverService, FileDeliverService>();
 
             // services.AddTransient<IEmailSender, NullMessageSender>();
             // services.AddTransient<IEmailSender>(serviceProvider => new SendGridEmailSender(this.configuration["EmailSettings:ApiKey"]));
