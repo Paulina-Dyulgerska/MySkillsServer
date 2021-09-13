@@ -1,6 +1,5 @@
 ﻿namespace MySkillsServer.Services.Data
 {
-    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -32,16 +31,6 @@
             };
 
             return requestedFile;
-        }
-
-        public async Task<Stream> GetFileFromBlobStorageForDownload(string inputFileUrl)
-        {
-            var container = this.blobServiceClient.GetBlobContainerClient(GlobalConstants
-                                                                    .AzureStorageBlobContainerName);
-            var fileBlob = container.GetBlobClient(inputFileUrl.Split('/').LastOrDefault());
-
-            var stream = await fileBlob.OpenReadAsync();
-            return stream;
         }
     }
 }

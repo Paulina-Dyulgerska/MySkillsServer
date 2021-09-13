@@ -8,7 +8,6 @@
     using Azure.Storage.Blobs;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-    using MySkillsServer.Common;
     using MySkillsServer.Services.Data;
 
     [ApiController]
