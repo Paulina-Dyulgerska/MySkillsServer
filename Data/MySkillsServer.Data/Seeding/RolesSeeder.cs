@@ -13,6 +13,11 @@
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
+            if (dbContext.Roles.Any())
+            {
+                return;
+            }
+
             var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
             await SeedRoleAsync(roleManager, GlobalConstants.AdministratorRoleName);

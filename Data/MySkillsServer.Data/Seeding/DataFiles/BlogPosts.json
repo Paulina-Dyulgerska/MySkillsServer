@@ -22,6 +22,17 @@
     "Likes": 867
   },
   {
+    "Author": "Dmitri Pavlutin",
+    "Title": "Gentle Explanation of 'this' in JavaScript",
+    "Details": "The mystery of this: this keyword has been a mystery for me for a long time. From a background like Java, PHP or other standard language, this is the instance of the current object in the class method. this cannot be used outside the method and such a simple approach does not create confusion.",
+    "ImageRemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/images/image5.jpg",
+    "ImageFileName": "image5",
+    "ImageFileExtension": "jpg",
+    "ExternalPostUrl": "https://dmitripavlutin.com/gentle-explanation-of-this-in-javascript/",
+    "PublishDate": "2020/10/24Z",
+    "Likes": 513
+  },
+  {
     "Author": "Microsoft",
     "Title": "Data Seeding",
     "Details": "Data seeding is the process of populating a database with an initial set of data.",

@@ -113,7 +113,7 @@
                     input.Email,
                     input.Name,
                     "Thank you for your message",
-                    $"Dear {input.Name},\r\n Thank you for your interest on our site and the message sent!\r\n We will contact you as soon as we review your request.\r\n\r\nKind Regards,\r\nConformity Check Team");
+                    $"Dear {input.Name},\r\n Thank you for your interest on our site and the message sent!\r\n We will contact you as soon as we review your request.\r\n\r\nKind Regards,\r\nMySkills Team");
 
                 this.logger.LogInformation($"Send contact message to user and admin, record message in the DB.");
             }
