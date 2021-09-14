@@ -1,5 +1,6 @@
 # MySkillsServer
-Back-end server for MySkills React Application
+Back-end server for MySkills React Application.
+<br/>
 Full info about MySkills is avilable here:
 https://github.com/Paulina-Dyulgerska/MySkills
 
