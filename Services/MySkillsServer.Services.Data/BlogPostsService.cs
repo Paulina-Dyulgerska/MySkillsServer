@@ -119,12 +119,10 @@
             entity.Categories = null;
             entity.Likes = input.Likes;
 
-            //Stream fileStream = await this.UploadFileAsync(input, imageFilesDirectory, entity);
-
+            // Stream fileStream = await this.UploadFileAsync(input, imageFilesDirectory, entity);
             await this.blogPostsRepository.SaveChangesAsync();
 
-            //await this.AddCategoriesAsync(entity, input.Categories);
-
+            // await this.AddCategoriesAsync(entity, input.Categories);
             return entity.Id;
         }
 

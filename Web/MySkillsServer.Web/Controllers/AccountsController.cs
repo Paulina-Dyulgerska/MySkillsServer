@@ -19,18 +19,15 @@
     public class AccountsController : BaseController
     {
         private readonly IAccountsService accountsService;
-        private readonly IReCaptchaService googleReCaptchaService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
 
         public AccountsController(
             IAccountsService accountsService,
-            IReCaptchaService googleReCaptchaService,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
             this.accountsService = accountsService;
-            this.googleReCaptchaService = googleReCaptchaService;
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
@@ -49,13 +46,12 @@
                 UserRoles = userRoles,
             });
 
-            //var userWIthTokenAndClaims = this.accountsService.Authenticate(user);
-
-            //return this.Ok(userWIthTokenAndClaims);
+            // var userWIthTokenAndClaims = this.accountsService.Authenticate(user);
+            // return this.Ok(userWIthTokenAndClaims);
         }
 
         //// JWT Authentication services 1
-        // TODO - not from Form but FromBody!!!!!
+        // TODO - not from Form but FromBody!
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromForm] UserLoginRequestModel input)
         {
@@ -85,10 +81,8 @@
             //    return this.BadRequest(new { Message = "You need higher permission to access this functionality" });
             // }
 
-            //var result = await this.signInManager
+            // var result = await this.signInManager
             //   .PasswordSignInAsync(input.Email, input.Password, isPersistent: false, lockoutOnFailure: false);
-            //this.Response.Cookies.Delete(".AspNetCore.Identity.Application");
-            //this.Response.Headers.Remove("Set-Cookie");
             // FOR JWT not use PasswordSignInAsync but CheckPasswordSignInAsync - the second DO NOT SEND Cookie from
             // the Identiry server!
             var result = await this.signInManager
@@ -122,15 +116,6 @@
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromForm] UserRegisterRequestModel input)
         {
-            // Not needed anymore since this logic is in a validation attribute GoogleReCaptchaValidationAttribute:
-            // var recaptchaResult = await this.googleReCaptchaService.IsReCaptchaValid(input.Token);
-            // if (!recaptchaResult)
-            // {
-            //     return this.BadRequest(new ErrorResponseModel
-            //     {
-            //         Description = "You failed the reCaptcha",
-            //     });
-            // }
             var request = this.HttpContext.Request.Form;
 
             if (input == null || !this.ModelState.IsValid)

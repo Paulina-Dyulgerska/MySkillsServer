@@ -6,9 +6,8 @@
     using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Identity;
+
     using Microsoft.Extensions.DependencyInjection;
-    using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Data;
     using MySkillsServer.Services.Data.Models;
 

@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace MySkillsServer.Data.Migrations
+﻿namespace MySkillsServer.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddIpToContactFormMessageEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -52,6 +52,7 @@
             };
 
             await this.blogPostsRepository.AddAsync(blogPost);
+
             // blogPost.ImageRemoteFileUrl = blogPost.Id;
             await this.blogPostsRepository.SaveChangesAsync();
         }

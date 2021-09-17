@@ -8,13 +8,13 @@
 
     public class BlogPostCreateInputModel
     {
-        //[Required]
+        // [Required]
         public string Title { get; set; }
 
-        //[Required]
+        // [Required]
         public string Author { get; set; }
 
-        //[Required]
+        // [Required]
         public string Details { get; set; }
 
         public IFormFile InputFile { get; set; }

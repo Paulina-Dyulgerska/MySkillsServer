@@ -11,7 +11,6 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
-    using MySkillsServer.Common;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Web.Infrastructure.Middlewares.Authorization;
     using MySkillsServer.Web.Infrastructure.Settings;
@@ -105,51 +104,5 @@
 
             return claims;
         }
-
-        ////old method - problem with Roles
-        //public async Task<UserLoginResponseModel> Authenticate(ApplicationUser user)
-        //{
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Email, user.Email),
-        //        new Claim(ClaimTypes.NameIdentifier, user.Id),
-        //    };
-
-        //    //// Add roles ids as multiple claims
-        //    // var roles = await this.userManager.GetRolesAsync(user);
-        //    // foreach (var role in roles)
-        //    // {
-        //    //    claims.Add(new Claim(ClaimTypes.Role, role));
-        //    // }
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    var jwtSecretKey = Encoding.ASCII.GetBytes(this.jwtSettings.Value.Secret);
-        //    var tokenDescriptor = new SecurityTokenDescriptor
-        //    {
-        //        Audience = this.jwtSettings.Value.Audience,
-        //        Issuer = this.jwtSettings.Value.Issuer,
-
-        //        Subject = new ClaimsIdentity(new Claim[]
-        //                            {
-        //                                new Claim(ClaimTypes.Email, user.Email),
-        //                                new Claim(ClaimTypes.NameIdentifier, user.Id),
-
-        //                                // new Claim(ClaimTypes.Role, GlobalConstants.AdministratorRoleName),
-        //                            }),
-
-        //        // Subject = new ClaimsIdentity(claims),
-        //        Expires = DateTime.UtcNow.AddDays(7),
-        //        SigningCredentials = new SigningCredentials(
-        //            new SymmetricSecurityKey(jwtSecretKey),
-        //            SecurityAlgorithms.HmacSha256Signature),
-        //    };
-
-        //    var token = tokenHandler.CreateToken(tokenDescriptor);
-        //    var tokenAsString = tokenHandler.WriteToken(token);
-
-        //    return new UserLoginResponseModel
-        //    {
-        //        AccessToken = tokenAsString,
-        //    };
-        //}
     }
 }

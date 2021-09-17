@@ -2,13 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+
     using AutoMapper;
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Mapping;
     using MySkillsServer.Web.ViewModels.Categories;
     using MySkillsServer.Web.ViewModels.Comments;
 
-    public class BlogPostExportModel : IMapFrom<BlogPost>, IHaveCustomMappings
+    public class BlogPostExportModel : IMapFrom<BlogPost>
     {
         public string Id { get; set; }
 
@@ -35,16 +36,5 @@
         public ICollection<CommentExportModel> Comments { get; set; }
 
         public ICollection<CategoryExportModel> Categories { get; set; }
-
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            {
-                //configuration.CreateMap<BlogPostExportModel, BlogPost>()
-                //    .ForMember(
-                //    x => x.Categories,
-                //    opt => opt.MapFrom(a => a.Categories))
-                //    ;
-            }
-        }
     }
 }
