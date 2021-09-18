@@ -10,8 +10,8 @@ using MySkillsServer.Data;
 namespace MySkillsServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210918112818_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210911213920_AddIpToContactFormMessageEntity")]
+    partial class AddIpToContactFormMessageEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
