@@ -33,6 +33,7 @@
                               new ContactsSeeder(),
                               new CategoriesSeeder(),
                               new BlogPostsSeeder(),
+                              new CertificatesSeeder(),
                           };
 
             foreach (var seeder in seeders)

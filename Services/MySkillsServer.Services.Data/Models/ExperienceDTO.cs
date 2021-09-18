@@ -1,7 +1,5 @@
 ﻿namespace MySkillsServer.Services.Data.Models
 {
-    using System;
-
     public class ExperienceDTO
     {
         public string Url { get; set; }

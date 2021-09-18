@@ -1,0 +1,16 @@
+[
+  {
+    "FileName": "ASP.NET Core - June 2021 - Certificate",
+    "FileExtension": "pdf",
+    "ImageFileExtension": "jpeg",
+    "ImageRemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/ASP.NET Core - June 2021 - Certificate.jpeg",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/ASP.NET Core - June 2021 - Certificate.pdf"
+  },
+  {
+    "FileName": "C# Advanced - September 2019 - Certificate",
+    "FileExtension": "pdf",
+    "ImageFileExtension": "jpeg",
+    "ImageRemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C# Advanced - September 2019 - Certificate.jpeg",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C# Advanced - September 2019 - Certificate.pdf"
+  }
+]

@@ -1,7 +1,5 @@
 ﻿namespace MySkillsServer.Services.Data.Models
 {
-    using System;
-
     public class EducationDTO
     {
         public string Degree { get; set; }

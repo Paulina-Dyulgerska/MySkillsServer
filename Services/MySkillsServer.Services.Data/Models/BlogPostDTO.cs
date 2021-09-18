@@ -1,7 +1,5 @@
 ﻿namespace MySkillsServer.Services.Data.Models
 {
-    using System;
-
     public class BlogPostDTO
     {
         public string Author { get; set; }

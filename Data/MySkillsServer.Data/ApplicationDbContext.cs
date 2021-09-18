@@ -41,6 +41,8 @@
 
         public DbSet<BlogPostCategory> BlogPostCategory { get; set; }
 
+        public DbSet<Certificate> Certificates { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

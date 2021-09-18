@@ -188,6 +188,7 @@
             services.AddTransient<IContactsSeedService, ContactsSeedService>();
             services.AddTransient<ICategoriesSeedService, CategoriesSeedService>();
             services.AddTransient<IBlogPostSeedService, BlogPostSeedService>();
+            services.AddTransient<ICertificatesSeedService, CertificateSeedService>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IEducationsService, EducationsService>();
             services.AddTransient<IExperiencesService, ExperiencesService>();
@@ -196,6 +197,7 @@
             services.AddTransient<IContactFormMessagesService, ContactFormMessagesService>();
             services.AddTransient<IBlogPostService, BlogPostsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<ICertificatesService, CertificatesService>();
             services.AddTransient<IReCaptchaService, ReCaptchaService>();
             services.AddTransient<IFileDeliverService, FileDeliverService>();
 
