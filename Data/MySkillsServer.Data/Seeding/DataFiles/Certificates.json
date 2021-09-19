@@ -1,16 +1,112 @@
 [
   {
-    "FileName": "ASP.NET Core - June 2021 - Certificate",
+    "FileName": "C# Programming Basics - March 2019 - Honorable mention",
+    "FileExtension": "jpeg",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C%23%20Programming%20Basics%20-%20March%202019%20-%20Honorable%20mention.jpeg"
+  },
+  {
+    "FileName": "C# Programming Basics - March 2019 - Honorable mention",
     "FileExtension": "pdf",
-    "ImageFileExtension": "jpeg",
-    "ImageRemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/ASP.NET Core - June 2021 - Certificate.jpeg",
-    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/ASP.NET Core - June 2021 - Certificate.pdf"
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C%23%20Programming%20Basics%20-%20March%202019%20-%20Honorable%20mention.pdf"
+  },
+  {
+    "FileName": "C# Fundamentals - September 2019 - Certificate",
+    "FileExtension": "jpeg",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C%23%20Fundamentals%20-%20September%202019%20-%20Certificate.jpeg"
+  },
+  {
+    "FileName": "C# Fundamentals - September 2019 - Certificate",
+    "FileExtension": "pdf",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C%23%20Fundamentals%20-%20September%202019%20-%20Certificate.pdf"
+  },
+  {
+    "FileName": "C# Advanced - September 2019 - Certificate",
+    "FileExtension": "jpeg",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C%23%20Advanced%20-%20September%202019%20-%20Certificate.jpeg"
   },
   {
     "FileName": "C# Advanced - September 2019 - Certificate",
     "FileExtension": "pdf",
-    "ImageFileExtension": "jpeg",
-    "ImageRemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C# Advanced - September 2019 - Certificate.jpeg",
-    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C# Advanced - September 2019 - Certificate.pdf"
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C%23%20Advanced%20-%20September%202019%20-%20Certificate.pdf"
+  },
+  {
+    "FileName": "C# OOP - October 2019 - Certificate",
+    "FileExtension": "jpeg",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C%23%20OOP%20-%20October%202019%20-%20Certificate.jpeg"
+  },
+  {
+    "FileName": "C# OOP - October 2019 - Certificate",
+    "FileExtension": "pdf",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C%23%20OOP%20-%20October%202019%20-%20Certificate.pdf"
+  },
+  {
+    "FileName": "JS Advanced - January 2020 - Certificate",
+    "FileExtension": "jpeg",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/JS%20Advanced%20-%20January%202020%20-%20Certificate.jpeg"
+  },
+  {
+    "FileName": "JS Advanced - January 2020 - Certificate",
+    "FileExtension": "pdf",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/JS%20Advanced%20-%20January%202020%20-%20Certificate.pdf"
+  },
+  {
+    "FileName": "JS Applications - February 2020 - Certificate",
+    "FileExtension": "jpeg",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/JS%20Applications%20-%20February%202020%20-%20Certificate.jpeg"
+  },
+  {
+    "FileName": "JS Applications - February 2020 - Certificate",
+    "FileExtension": "pdf",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/JS%20Applications%20-%20February%202020%20-%20Certificate.pdf"
+  },
+  {
+    "FileName": "Databases Basics - MS SQL Server - May 2020 - Certificate",
+    "FileExtension": "jpeg",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/Databases%20Basics%20-%20MS%20SQL%20Server%20-%20May%202020%20-%20Certificate.jpeg"
+  },
+  {
+    "FileName": "Databases Basics - MS SQL Server - May 2020 - Certificate",
+    "FileExtension": "pdf",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/Databases%20Basics%20-%20MS%20SQL%20Server%20-%20May%202020%20-%20Certificate.pdf"
+  },
+  {
+    "FileName": "Entity Framework Core - June 2020 - Certificate",
+    "FileExtension": "jpeg",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/Entity%20Framework%20Core%20-%20June%202020%20-%20Certificate.jpeg"
+  },
+  {
+    "FileName": "Entity Framework Core - June 2020 - Certificate",
+    "FileExtension": "pdf",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/Entity%20Framework%20Core%20-%20June%202020%20-%20Certificate.pdf"
+  },
+  {
+    "FileName": "C# Web Basics - September 2020 - Certificate",
+    "FileExtension": "jpeg",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C%23%20Web%20Basics%20-%20September%202020%20-%20Certificate.jpeg"
+  },
+  {
+    "FileName": "C# Web Basics - September 2020 - Certificate",
+    "FileExtension": "pdf",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/C%23%20Web%20Basics%20-%20September%202020%20-%20Certificate.pdf"
+  },
+  {
+    "FileName": "HTML & CSS - January 2021 - Certificate",
+    "FileExtension": "jpeg",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/HTML%20%26%20CSS%20-%20January%202021%20-%20Certificate.jpeg"
+  },
+  {
+    "FileName": "HTML & CSS - January 2021 - Certificate",
+    "FileExtension": "pdf",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/HTML%20%26%20CSS%20-%20January%202021%20-%20Certificate.pdf"
+  },
+  {
+    "FileName": "ASP.NET Core - June 2021 - Certificate",
+    "FileExtension": "jpeg",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/ASP.NET%20Core%20-%20June%202021%20-%20Certificate.jpeg"
+  },
+  {
+    "FileName": "ASP.NET Core - June 2021 - Certificate",
+    "FileExtension": "pdf",
+    "RemoteFileUrl": "https://paulinadatastorage.blob.core.windows.net/certificates/ASP.NET%20Core%20-%20June%202021%20-%20Certificate.pdf"
   }
 ]
