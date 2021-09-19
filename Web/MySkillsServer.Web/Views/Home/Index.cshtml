@@ -1,4 +1,6 @@
 ﻿@using MySkillsServer.Common
+@model MySkillsServer.Web.ViewModels.Certificates.CertificateCreateInputModel
+
 
 @{
     this.ViewData["Title"] = "Home Page";
@@ -8,3 +10,26 @@
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@*@foreach (var currentImageName in this.ViewBag.Names)
+{
+    <div>
+        <img width="100" height="100" src="@Url.Action("GetImage", "Home", new { imageName = currentImageName})" />
+    </div>
+}*@
+
+<hr />
+
+<form method="post" asp-action="Post" enctype="multipart/form-data">
+    <input type="file" placeholder="Add file" asp-for="@Model.InputFile" />
+    <input type="submit" value="Upload file" />
+</form>
+
+<hr />
+
+@*@foreach (var currentImageUrl in this.ViewBag.Urls)
+{
+    <div>
+        <img width="100" height="100" src="@currentImageUrl" />
+    </div>
+}*@

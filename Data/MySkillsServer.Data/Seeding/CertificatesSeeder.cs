@@ -33,7 +33,6 @@
                 }
                 catch (Exception ex)
                 {
-                    var a = ex;
                 }
             }
         }

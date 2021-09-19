@@ -19,7 +19,7 @@
         public async Task<FileDeliverExportModel> GetFileFromBlobStorage(string inputFileUrl)
         {
             var container = this.blobServiceClient.GetBlobContainerClient(GlobalConstants
-                                                                                .AzureStorageBlobContainerName);
+                                                                                .AzureStorageBlobContainerNameMyPersonalDocuments);
             var fileBlob = container.GetBlobClient(inputFileUrl.Split('/').LastOrDefault());
             var downloadedFile = await fileBlob.DownloadContentAsync();
 

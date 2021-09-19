@@ -186,7 +186,7 @@
             await input.InputFile.CopyToAsync(fileStream);
 
             // upload to Azure Blob variant 2:
-            var container = this.blobServiceClient.GetBlobContainerClient(GlobalConstants.AzureStorageBlobContainerName);
+            var container = this.blobServiceClient.GetBlobContainerClient(GlobalConstants.AzureStorageBlobContainerNameImages);
             var blobClient = container.GetBlobClient($"{fileName}.{extension}");
 
             // fileStream pointer must be returned at its 0 byte, because it is at the last byte at the moment:

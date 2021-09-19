@@ -3,7 +3,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using MySkillsServer.Common;
@@ -15,21 +14,15 @@
     [ApiController]
     public class CertificatesController : BaseController
     {
-        private const string CertificatesDirName = "certificates";
         private readonly ICertificatesService certificatesService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IWebHostEnvironment environment;
-        private readonly string certificatesFilesDirectory;
 
         public CertificatesController(
             ICertificatesService certificatesService,
-            UserManager<ApplicationUser> userManager,
-            IWebHostEnvironment environment)
+            UserManager<ApplicationUser> userManager)
         {
             this.certificatesService = certificatesService;
             this.userManager = userManager;
-            this.environment = environment;
-            this.certificatesFilesDirectory = $"{this.environment.WebRootPath}/{CertificatesDirName}";
         }
 
         [HttpGet]
@@ -52,7 +45,7 @@
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<CertificateExportModel>> GetById(string id)
+        public async Task<ActionResult<CertificateExportModel>> GetById(int id)
         {
             var model = await this.certificatesService.GetByIdAsync<CertificateExportModel>(id);
 
@@ -75,7 +68,7 @@
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var user = await this.userManager.GetUserAsync(this.User);
 
-            var inputId = await this.certificatesService.CreateAsync(input, user.Id, this.certificatesFilesDirectory);
+            var inputId = await this.certificatesService.CreateAsync(input, user.Id);
 
             var model = await this.certificatesService.GetByIdAsync<CertificateExportModel>(inputId);
 
@@ -89,7 +82,7 @@
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<CertificateExportModel>> Put(string id, [FromForm] CertificateEditInputModel input)
+        public async Task<ActionResult<CertificateExportModel>> Put(int id, [FromForm] CertificateEditInputModel input)
         {
             if (id != input.Id)
             {
@@ -106,7 +99,7 @@
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var user = await this.userManager.GetUserAsync(this.User);
 
-            await this.certificatesService.EditAsync(input, user.Id, this.certificatesFilesDirectory);
+            await this.certificatesService.EditAsync(input, user.Id);
 
             return this.NoContent();
         }
@@ -117,7 +110,7 @@
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(int id)
         {
             var model = await this.certificatesService.GetByIdAsync<CertificateExportModel>(id);
 

@@ -14,6 +14,10 @@
 
         public const string JwtCookieName = "MySkillsCookie.AspNetCore.Identity.Application";
 
-        public const string AzureStorageBlobContainerName = "mypersonaldocuments";
+        public const string AzureStorageBlobContainerNameImages = "images";
+
+        public const string AzureStorageBlobContainerNameMyPersonalDocuments = "mypersonaldocuments";
+
+        public const string AzureStorageBlobContainerNameCertificates = "certificates";
     }
 }

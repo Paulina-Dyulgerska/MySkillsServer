@@ -5,6 +5,12 @@
 
     public class CertificateExportModel : IMapFrom<Certificate>
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
+
+        public string FileName { get; set; }
+
+        public string FileExtension { get; set; }
+
+        public string RemoteFileUrl { get; set; }
     }
 }

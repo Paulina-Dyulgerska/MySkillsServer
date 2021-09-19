@@ -2,15 +2,14 @@
 {
     using System.Threading.Tasks;
 
-    using MySkillsServer.Data.Models;
     using MySkillsServer.Web.ViewModels.Certificates;
 
-    public interface ICertificatesService : IService<string>
+    public interface ICertificatesService : IService<int>
     {
-        Task<string> CreateAsync(CertificateCreateInputModel input, string userId, string certificatesFilesDirectory);
+        Task<int> CreateAsync(CertificateCreateInputModel input, string userId);
 
-        Task<string> EditAsync(CertificateEditInputModel input, string userId, string certificatesFilesDirectory);
+        Task<int> EditAsync(CertificateEditInputModel input, string userId);
 
-        Task<int> DeleteAsync(string id, string userId);
+        Task<int> DeleteAsync(int id, string userId);
     }
 }

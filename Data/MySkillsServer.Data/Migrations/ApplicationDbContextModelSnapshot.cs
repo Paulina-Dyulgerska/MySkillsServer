@@ -369,8 +369,10 @@ namespace MySkillsServer.Data.Migrations
 
             modelBuilder.Entity("MySkillsServer.Data.Models.Certificate", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -379,12 +381,6 @@ namespace MySkillsServer.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FileName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageFileExtension")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageRemoteFileUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedOn")

@@ -33,9 +33,7 @@
             {
                 FileName = certificateDTO.FileName,
                 FileExtension = certificateDTO.FileExtension,
-                ImageFileExtension = certificateDTO.ImageFileExtension,
                 RemoteFileUrl = certificateDTO.RemoteFileUrl,
-                ImageRemoteFileUrl = certificateDTO.ImageRemoteFileUrl,
                 User = user,
             };
 
