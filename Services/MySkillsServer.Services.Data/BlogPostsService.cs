@@ -14,20 +14,24 @@
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Mapping;
     using MySkillsServer.Web.ViewModels.BlogPosts;
+    using MySkillsServer.Web.ViewModels.Comments;
 
     public class BlogPostsService : IBlogPostService
     {
         private readonly IDeletableEntityRepository<BlogPost> blogPostsRepository;
         private readonly IRepository<BlogPostCategory> blogPostCategoriesRepository;
+        private readonly IRepository<Comment> commentsRepository;
         private readonly BlobServiceClient blobServiceClient;
 
         public BlogPostsService(
             IDeletableEntityRepository<BlogPost> blogPostsRepository,
             IRepository<BlogPostCategory> blogPostCategoriesRepository,
+            IRepository<Comment> commentsRepository,
             BlobServiceClient blobServiceClient)
         {
             this.blogPostsRepository = blogPostsRepository;
             this.blogPostCategoriesRepository = blogPostCategoriesRepository;
+            this.commentsRepository = commentsRepository;
             this.blobServiceClient = blobServiceClient;
         }
 
@@ -136,6 +140,35 @@
             await this.blogPostsRepository.SaveChangesAsync();
 
             return entity.Likes;
+        }
+
+        //public async Task<IEnumerable<CommentExportModel>> GetAllCommentsAsync(string blogPostId)
+        //{
+        //    var entities = await this.commentsRepository
+        //        .AllAsNoTracking()
+        //        .Where(x => x.BlogPostId == blogPostId)
+        //        .To<CommentExportModel>()
+        //        .ToListAsync();
+
+        //    return entities;
+        //}
+
+        public async Task AddCommentAsync(CommentInputModel input, string userId)
+        {
+            var entity = await this.blogPostsRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == input.BlogPostId);
+
+            var comment = new Comment
+            {
+                BlogPostId = input.BlogPostId,
+                Content = input.Content.Trim(),
+                UserId = userId,
+            };
+
+            entity.Comments.Add(comment);
+
+            await this.blogPostsRepository.SaveChangesAsync();
         }
 
         public async Task<int> DeleteAsync(string id, string userId)

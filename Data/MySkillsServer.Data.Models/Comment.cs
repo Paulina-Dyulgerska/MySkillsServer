@@ -15,8 +15,6 @@
         [Required]
         public string Content { get; set; }
 
-        public DateTime PublishDate { get; set; }
-
         [Required]
         public string UserId { get; set; }
 

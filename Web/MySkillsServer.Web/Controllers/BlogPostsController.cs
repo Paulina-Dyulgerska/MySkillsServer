@@ -10,6 +10,7 @@
     using MySkillsServer.Data.Models;
     using MySkillsServer.Services.Data;
     using MySkillsServer.Web.ViewModels.BlogPosts;
+    using MySkillsServer.Web.ViewModels.Comments;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -126,6 +127,43 @@
             var result = await this.blogPostService.EditLikesAsync(input);
 
             return this.Ok(result);
+        }
+
+        //// [Authorize]
+        //[HttpGet("{id}/comments")]
+        //[IgnoreAntiforgeryTokenAttribute]
+        //[ProducesResponseType(200)]
+        //[ProducesResponseType(404)]
+        //public async Task<ActionResult<BlogPostExportModel>> Get(string id)
+        //{
+        //    if (!this.ModelState.IsValid)
+        //    {
+        //        return this.BadRequest();
+        //    }
+
+        //    // var user = await this.userManager.GetUserAsync(this.User);
+        //    var result = await this.blogPostService.GetAllCommentsAsync(id);
+
+        //    return this.Ok(result);
+        //}
+
+        // [Authorize]
+        [HttpPost("{id}/comments/add")]
+        [IgnoreAntiforgeryTokenAttribute]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<BlogPostExportModel>> Post([FromForm] CommentInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            await this.blogPostService.AddCommentAsync(input, user.Id);
+
+            return this.Ok();
         }
 
         // [Authorize]
