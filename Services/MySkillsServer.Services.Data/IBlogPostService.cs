@@ -14,9 +14,8 @@
 
         Task<int> EditLikesAsync(BlogPostEditLikesInputModel input);
 
-        //Task<IEnumerable<CommentExportModel>> GetAllCommentsAsync(string id);
-
-        Task AddCommentAsync(CommentInputModel input, string userId);
+        // Task<IEnumerable<CommentExportModel>> GetAllCommentsAsync(string id);
+        Task<BlogPostExportModel> AddCommentAsync(CommentInputModel input, string userId);
 
         Task<int> DeleteAsync(string id, string userId);
     }

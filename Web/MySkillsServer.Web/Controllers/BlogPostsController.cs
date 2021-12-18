@@ -148,7 +148,7 @@
         //}
 
         // [Authorize]
-        [HttpPost("{id}/comments/add")]
+        [HttpPost("comments/add/{id}")]
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
@@ -161,9 +161,9 @@
 
             var user = await this.userManager.GetUserAsync(this.User);
 
-            await this.blogPostService.AddCommentAsync(input, user.Id);
+            var result = await this.blogPostService.AddCommentAsync(input, user.Id);
 
-            return this.Ok();
+            return this.Ok(result);
         }
 
         // [Authorize]

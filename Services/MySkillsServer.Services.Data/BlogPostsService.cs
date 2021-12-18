@@ -153,11 +153,13 @@
         //    return entities;
         //}
 
-        public async Task AddCommentAsync(CommentInputModel input, string userId)
+        public async Task<BlogPostExportModel> AddCommentAsync(CommentInputModel input, string userId)
         {
             var entity = await this.blogPostsRepository
                 .All()
-                .FirstOrDefaultAsync(x => x.Id == input.BlogPostId);
+                .Where(x => x.Id == input.BlogPostId)
+                .Include(x => x.Comments)
+                .FirstOrDefaultAsync();
 
             var comment = new Comment
             {
@@ -169,6 +171,8 @@
             entity.Comments.Add(comment);
 
             await this.blogPostsRepository.SaveChangesAsync();
+
+            return entity.To<BlogPostExportModel>();
         }
 
         public async Task<int> DeleteAsync(string id, string userId)
