@@ -22,6 +22,7 @@
             this.userManager = userManager;
             this.certificatesService = certificatesService;
         }
+
         public IActionResult Index()
         {
             return this.View();
@@ -41,11 +42,15 @@
 
         public async Task<ActionResult> Post(CertificateCreateInputModel input)
         {
-            var inputId = await this.certificatesService.CreateAsync(input, "8bdd4ddc-2a5d-4370-8da6-2c855cbae76a");
+            // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            // var user = await this.userManager.GetUserAsync(this.User);
+            var user = await this.userManager.FindByEmailAsync("paulina.dyulgerska@gmail.com");
+
+            var inputId = await this.certificatesService.CreateAsync(input, user.Id);
 
             var model = await this.certificatesService.GetByIdAsync<CertificateExportModel>(inputId);
 
-            return this.View(nameof(this.Index));
+            return this.View();
         }
     }
 }

@@ -49,7 +49,7 @@
             return this.Ok(models);
         }
 
-        // GET /api/educations/id and api/educations?id=1234
+        // GET /api/blogPosts/id and api/blogPosts?id=1234
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
@@ -65,7 +65,6 @@
             return this.Ok(model);
         }
 
-        // [Authorize]
         [HttpPost]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [IgnoreAntiforgeryTokenAttribute]
@@ -83,7 +82,6 @@
             return this.CreatedAtAction(nameof(this.GetById), new { id = model.Id }, model);
         }
 
-        // [Authorize]
         [HttpPut("{id}")]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [IgnoreAntiforgeryTokenAttribute]
@@ -129,8 +127,8 @@
             return this.Ok(result);
         }
 
-        // [Authorize]
         [HttpPost("comments/add/{id}")]
+        [Authorize]
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
@@ -148,7 +146,6 @@
             return this.Ok(result);
         }
 
-        // [Authorize]
         [HttpPost("comments/like/{id}")]
         [IgnoreAntiforgeryTokenAttribute]
         [ProducesResponseType(200)]
@@ -167,7 +164,6 @@
             return this.Ok(result);
         }
 
-        // [Authorize]
         [HttpDelete("{id}")]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [IgnoreAntiforgeryTokenAttribute]

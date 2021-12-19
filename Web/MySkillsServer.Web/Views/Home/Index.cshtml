@@ -20,7 +20,7 @@
 
 <hr />
 
-<form method="post" asp-action="Post" enctype="multipart/form-data">
+<form asp-controller="Home" method="post" asp-action="Post" enctype="multipart/form-data">
     <input type="file" placeholder="Add file" asp-for="@Model.InputFile" />
     <input type="submit" value="Upload file" />
 </form>

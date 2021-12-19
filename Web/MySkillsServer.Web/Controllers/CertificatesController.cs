@@ -58,6 +58,8 @@
         }
 
         // [Authorize]
+        // [Consumes("multipart/form-data")] - this API Controller does not accept multipart/form-data!
+        // Check the HomeController for the upload method for files.
         [HttpPost]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [IgnoreAntiforgeryTokenAttribute]
@@ -66,7 +68,8 @@
         public async Task<ActionResult> Post(CertificateCreateInputModel input)
         {
             // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = await this.userManager.GetUserAsync(this.User);
+            // var user = await this.userManager.GetUserAsync(this.User);
+            var user = await this.userManager.FindByEmailAsync("paulina.dyulgerska@gmail.com");
 
             var inputId = await this.certificatesService.CreateAsync(input, user.Id);
 
