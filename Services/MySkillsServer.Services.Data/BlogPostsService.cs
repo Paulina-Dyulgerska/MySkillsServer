@@ -156,10 +156,10 @@
         public async Task<BlogPostExportModel> AddCommentAsync(CommentInputModel input, string userId)
         {
             var entity = await this.blogPostsRepository
-                .All()
-                .Where(x => x.Id == input.BlogPostId)
-                .Include(x => x.Comments)
-                .FirstOrDefaultAsync();
+                                    .All()
+                                    .Where(x => x.Id == input.BlogPostId)
+                                    .Include(x => x.Comments)
+                                    .FirstOrDefaultAsync();
 
             var comment = new Comment
             {
@@ -169,6 +169,21 @@
             };
 
             entity.Comments.Add(comment);
+
+            await this.blogPostsRepository.SaveChangesAsync();
+
+            return entity.To<BlogPostExportModel>();
+        }
+
+        public async Task<BlogPostExportModel> AddCommentLikeAsync(string blogPostId, int commentId)
+        {
+            var entity = await this.blogPostsRepository
+                                    .All()
+                                    .Where(x => x.Id == blogPostId)
+                                    .Include(x => x.Comments)
+                                    .FirstOrDefaultAsync();
+
+            entity.Comments.Where(x => x.Id == commentId).FirstOrDefault().Likes++;
 
             await this.blogPostsRepository.SaveChangesAsync();
 

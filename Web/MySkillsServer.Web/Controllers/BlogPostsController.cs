@@ -129,24 +129,6 @@
             return this.Ok(result);
         }
 
-        //// [Authorize]
-        //[HttpGet("{id}/comments")]
-        //[IgnoreAntiforgeryTokenAttribute]
-        //[ProducesResponseType(200)]
-        //[ProducesResponseType(404)]
-        //public async Task<ActionResult<BlogPostExportModel>> Get(string id)
-        //{
-        //    if (!this.ModelState.IsValid)
-        //    {
-        //        return this.BadRequest();
-        //    }
-
-        //    // var user = await this.userManager.GetUserAsync(this.User);
-        //    var result = await this.blogPostService.GetAllCommentsAsync(id);
-
-        //    return this.Ok(result);
-        //}
-
         // [Authorize]
         [HttpPost("comments/add/{id}")]
         [IgnoreAntiforgeryTokenAttribute]
@@ -162,6 +144,25 @@
             var user = await this.userManager.GetUserAsync(this.User);
 
             var result = await this.blogPostService.AddCommentAsync(input, user.Id);
+
+            return this.Ok(result);
+        }
+
+        // [Authorize]
+        [HttpPost("comments/like/{id}")]
+        [IgnoreAntiforgeryTokenAttribute]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<BlogPostExportModel>> Post([FromForm]string blogPostId, [FromForm] int commentId)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var result = await this.blogPostService.AddCommentLikeAsync(blogPostId, commentId);
 
             return this.Ok(result);
         }

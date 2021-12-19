@@ -17,6 +17,8 @@
         // Task<IEnumerable<CommentExportModel>> GetAllCommentsAsync(string id);
         Task<BlogPostExportModel> AddCommentAsync(CommentInputModel input, string userId);
 
+        Task<BlogPostExportModel> AddCommentLikeAsync(string blogPostId, int commentId);
+
         Task<int> DeleteAsync(string id, string userId);
     }
 }
