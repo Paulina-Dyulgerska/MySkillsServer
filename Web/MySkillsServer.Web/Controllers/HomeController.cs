@@ -50,7 +50,7 @@
 
             var model = await this.certificatesService.GetByIdAsync<CertificateExportModel>(inputId);
 
-            return this.View();
+            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }

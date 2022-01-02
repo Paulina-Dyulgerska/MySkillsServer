@@ -46,7 +46,7 @@
         {
             return await this.certificatesRepository
                 .AllAsNoTracking()
-                .OrderBy(x => x.Id)
+                .OrderBy(x => x.CreatedOn)
                 .ThenByDescending(x => x.FileName)
                 .ThenByDescending(x => x.FileExtension)
                 .To<T>()
